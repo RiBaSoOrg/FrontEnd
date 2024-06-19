@@ -1,5 +1,90 @@
 .shopTitle {
-    margin-top: 100px;
+    margin-bottom: 20px ;
     text-align: center;
     font-size: 40px;
+}
+
+.products {
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    place-items: center;
+}
+
+.product {
+    border-radius: 25px;
+    width: 300px;
+    margin: 20px 20px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.product img {
+    width: 400px;
+    box-shadow: 10px 3px 15px rgba(0, 0, 0, 0.2);
+    border: dimgrey;
+    border-radius: 25px;
+    margin: 15px 15px 30px;
+}
+
+.product .description {
+    text-align: center;
+}
+
+.product:hover {
+    transition: 0.3s ease-in;
+    cursor: pointer;
+}
+
+.addToCartButton {
+    background-color: transparent;
+    border: 2px solid rgb(19, 19, 19);
+    min-width: 100px;
+    padding: 5px 10px 5px;
+    margin-top: 6%;
+    margin-bottom: 20px;
+    border-radius: 13px;
+}
+
+.addToCartButton:hover {
+    background-color: lightslategray;
+    color: white;
+    cursor: pointer;
+}
+
+.adminButtonsContainer {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+}
+
+.AddButton {
+    background-color: transparent;
+    border: 2px solid rgba(112, 161, 10, 0.91);
+    max-width: 200px;
+    padding: 20px ;
+    border-radius: 13px;
+    margin:  3% 100px;
+    cursor: pointer;
+}
+
+.adminDeletButton {
+    background-color: transparent;
+    border: 2px solid red;
+    min-width: 100px;
+    padding: 5px 10px 5px;
+    border-radius: 13px;
+    margin-bottom: 3%;
+    cursor: pointer;
+}
+
+
+.adminDeletButton:hover {
+    background-color:  red;
+}
+
+.AddButton:hover {
+    background-color: rgba(95, 189, 63, 0.7);
 }

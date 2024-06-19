@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ShoppingCart, SignOut, List, X } from "phosphor-react";
+import { ShoppingCart, List, X } from "phosphor-react";
 import "./navbar.css";
 
 export const Navbar = () => {

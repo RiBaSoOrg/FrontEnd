@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, {useState} from 'react';
 import { Link } from "react-router-dom";
-import { ShoppingCart, List, X } from "phosphor-react";
+import { ShoppingCart, List, X, User } from "phosphor-react";
 import "./navbar.css";
+import {ShopContext} from "../context/ShopContext";
 
 export const Navbar = () => {
+
+    const { cartItems } = React.useContext(ShopContext);
+
+    const totalCartItems = Object.values(cartItems).reduce((total, count) => total + count, 0);
+
     const [menuOpen, setMenuOpen] = useState(false);
 
     const toggleMenu = () => {
@@ -17,9 +23,12 @@ export const Navbar = () => {
             </div>
             <div className={`links ${menuOpen ? "open" : ""}`}>
                 <Link to="/" onClick={toggleMenu}> Shop </Link>
-                <Link to="/contact" onClick={toggleMenu}> Contact </Link>
+                <Link to="/login" onClick={toggleMenu}>
+                    <User size={32} />
+                </Link>
                 <Link to="/cart" onClick={toggleMenu}>
                     <ShoppingCart size={30} />
+                    {totalCartItems > 0 && <span className="cart-item-count">{totalCartItems}</span>}
                 </Link>
             </div>
         </div>

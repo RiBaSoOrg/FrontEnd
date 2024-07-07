@@ -5,7 +5,16 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    position: relative; /* Needed for positioning the counter */
+    position: relative;
+}
+
+.hamburger {
+    display: initial;
+    cursor: pointer;
+    color: white;
+    margin-left: 20px;
+    position: fixed;
+    left: 20px;
 }
 
 .links {
@@ -19,10 +28,40 @@
     color: white;
     margin-left: 20px;
     font-size: 30px;
+    display: flex;
+    align-items: center;
 }
 
-.links a:hover{
+.links a:hover {
     color: paleturquoise;
+}
+
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+
+    .links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 80px; /* Adjust based on your navbar height */
+        left: 0;
+        background-color: rgb(19, 19, 19);
+        text-align: center;
+        margin-right: 0; /* Reset margin for mobile */
+    }
+
+    .links.open {
+        display: flex;
+    }
+
+    .links a {
+        margin: 10px 0;
+        font-size: 24px; /* Adjust font size for mobile */
+    }
 }
 
 .cart-item-count {

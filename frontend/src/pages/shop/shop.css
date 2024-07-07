@@ -88,3 +88,23 @@
 .AddButton:hover {
     background-color: rgba(95, 189, 63, 0.7);
 }
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.decreaseButton, .increaseButton {
+    background-color: #eee;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 13px;
+}
+
+.quantity-controls span {
+    margin: 0 10px;
+    font-size: 16px;
+}

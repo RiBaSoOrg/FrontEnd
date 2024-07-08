@@ -86,8 +86,50 @@
     margin-bottom: 20px;
 }
 
+/* Payment methods container */
+.payment-methods {
+    margin-bottom: 20px;
+}
+
+/* Payment method labels */
+.payment-methods label {
+    margin-left: 10px;
+    margin-right: 20px;
+    color: #333;
+    font-size: 18px;
+}
+
+/* Payment method radio buttons */
+.payment-methods input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* Card details form */
+.card-details-form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.card-details-form input {
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Container for the checkout buttons */
+.checkout-buttons-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 700px;
+}
+
 /* Checkout button */
 .checkout-button {
+    display: inline-block;
     width: 150px;
     height: 50px;
     background-color: rgb(19, 19, 19);
@@ -96,6 +138,9 @@
     margin: 10px;
     cursor: pointer;
     font-size: 16px;
+    text-align: center;
+    line-height: 50px;
+    text-decoration: none;
 }
 
 .checkout-button:hover {

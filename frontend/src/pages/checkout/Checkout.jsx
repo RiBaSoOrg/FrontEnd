@@ -1,57 +1,44 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { ShopContext } from '../../context/ShopContext';
 import './checkout.css';
-import { useNavigate } from "react-router-dom";
 
-const CheckoutPage = () => {
-    const [fullName, setFullName] = useState('');
-    const [address, setAddress] = useState('');
-    const [city, setCity] = useState('');
-    const [postalCode, setPostalCode] = useState('');
+export const Checkout = () => {
+    const { cartItems, PRODUCTS, getTotalCartAmount, checkout } = useContext(ShopContext);
 
-    const handleCheckout = () => {
-        // Replace this with your actual checkout logic
-        // For this example, let's just show an alert
-        alert('Order placed successfully!');
-    };
+    console.log('Cart Items:', cartItems); // Log for debugging
+    console.log('Products:', PRODUCTS); // Log for debugging
 
-    const navigate = useNavigate();
+    const totalAmount = getTotalCartAmount();
 
     return (
         <div className="checkout-container">
-            <h1 className="checkout-title">Checkout</h1>
-            <div className="input-container">
-                <input
-                    type="text"
-                    placeholder="Full Name"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    className="input-field"
-                />
-                <input
-                    type="text"
-                    placeholder="Address"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    className="input-field"
-                />
-                <input
-                    type="text"
-                    placeholder="City"
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                    className="input-field"
-                />
-                <input
-                    type="text"
-                    placeholder="Postal Code"
-                    value={postalCode}
-                    onChange={(e) => setPostalCode(e.target.value)}
-                    className="input-field"
-                />
-            </div>
-            <button className="checkout-button" onClick={() => navigate("/checkout")}>Checkout</button>
+            <h1>Checkout</h1>
+            {totalAmount > 0 ? (
+                <>
+                    <div className="checkout-items">
+                        {PRODUCTS.filter(product => cartItems[product.id] > 0).map(product => (
+                            <div className="checkout-item" key={product.id}>
+                                <img src={product.productImage} alt={product.productName} />
+                                <div className="checkout-item-details">
+                                    <p><b>{product.productName}</b></p>
+                                    <p>Price: ${product.price}</p>
+                                    <div className="quantity-controls">
+                                        <span>Quantity: {cartItems[product.id]}</span>
+                                    </div>
+                                    <p>Total: ${product.price * cartItems[product.id]}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="checkout-summary">
+                        <h2>Order Summary</h2>
+                        <p>Total Amount: ${totalAmount}</p>
+                        <button className="checkout-button" onClick={checkout}>Complete Purchase</button>
+                    </div>
+                </>
+            ) : (
+                <p>Your cart is empty</p>
+            )}
         </div>
     );
 };
-
-export default CheckoutPage;

@@ -18,6 +18,7 @@ export const Product = (props) => {
     };
 
     const handleAddToCart = () => {
+        console.log('Adding to cart:', { id, tempCount }); // Log for debugging
         for (let i = 0; i < tempCount; i++) {
             addToCart(id);
         }
@@ -44,4 +45,3 @@ export const Product = (props) => {
         </div>
     );
 };
-

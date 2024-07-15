@@ -21,7 +21,7 @@ const CartOverlay: React.FC<CartOverlayProps> = ({ onClose }) => {
 
   // Funktion, die aufgerufen wird, wenn der Kauf-Button geklickt wird
   const handleBuy = () => {
-    navigate('/thank-you', { state: { purchasedItems: cart, totalPrice } }); // Navigiert zur Thank-You-Seite und übergibt die gekauften Artikel und den Gesamtpreis
+    navigate('/order', { state: { purchasedItems: cart, totalPrice } }); // Navigiert zur Thank-You-Seite und übergibt die gekauften Artikel und den Gesamtpreis
     dispatch(clearCart())  // Leert den Einkaufswagen
     onClose(); // Schließt das Overlay
   };

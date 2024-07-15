@@ -13,6 +13,7 @@ import WelcomeScreen from './components/WelcomePage/WelcomeScreen';
 import Redirect from './components/Redirect';
 import ShopPage from "./components/ShopPage/shopPage";
 import LoginScreen from "./components/LoginScreen/LoginScreen";
+import OrderPage from "./components/OderPage/OrderPage";
 
 // Definiere die geschützten Routen, die Authentifizierung erfordern
 const protectedRoutes: RouteObject[] = [
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
       {
         path: "login",
         element: <LoginScreen />
+      },
+      {
+        path: "order",
+        element: <OrderPage/>
       },
       {
         path: "detail-book/:id",

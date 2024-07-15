@@ -1,0 +1,12 @@
+/* AboutScreen.css */
+.about-container {
+    padding: 20px;
+    height: calc(100vh - 160px); /* Gesamthöhe minus Header-Höhe */
+    overflow: hidden; /* Verhindert Scrollen */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Zentriert den Inhalt vertikal */
+    align-items: center; /* Zentriert den Inhalt horizontal */
+    text-align: center; /* Zentriert den Text */
+  }
+  

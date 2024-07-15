@@ -1,0 +1,52 @@
+.books-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Anzahl der Spalten anpassen */
+  grid-gap: 20px;
+  padding: 20px;
+}
+
+.Short-Story-Bookstore {
+  background-color: #9eccf5; /* AliceBlue */
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%; 
+}
+
+.Novel-Bookstore {
+  background-color: #d5afe2; /* MistyRose */
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%;
+  
+}
+
+.store-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 20px;
+}
+
+.pagination-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+button {
+  padding: 10px 20px;
+  background: #555;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.add-book-back-button:hover {
+    background: #333;
+}

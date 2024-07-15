@@ -1,0 +1,63 @@
+.thank-you-container {
+    padding: 20px;
+    padding-top: 100px; /* Hinzufügen von zusätzlichem oberen Abstand */
+    text-align: center;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 40px auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .thank-you-container h1 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .thank-you-container p {
+    color: #555;
+    margin-bottom: 20px;
+  }
+  
+  .purchased-item-info {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-bottom: 15px;
+  }
+  
+  .purchased-item-title {
+    font-weight: bold;
+  }
+  
+  .purchased-item-author,
+  .purchased-item-quantity,
+  .purchased-item-price,
+  .purchased-item-store {
+    font-style: italic;
+  }
+  
+  .total-price {
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .back-button {
+    background: linear-gradient(45deg, #61dafb, #ff6ec4);
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+    font-size: 1.1em;
+    transition: background 0.3s;
+    margin-top: 20px;
+  }
+  
+  .back-button:hover {
+    background: linear-gradient(45deg, #ff6ec4, #61dafb);
+  }
+  

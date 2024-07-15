@@ -1,0 +1,49 @@
+/* DetailBookScreen.css */
+.detail-book-container {
+    max-width: 600px;
+    margin: 160px auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+.detail-book-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.detail-book-image {
+    display: block;
+    max-width: 200px;
+    margin: 20px auto;
+    border-radius: 5px;
+}
+
+.detail-book-info {
+    margin-bottom: 10px;
+}
+
+.detail-book-info strong {
+    color: #333;
+}
+
+.detail-book-footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.detail-book-back-button {
+    padding: 10px 20px;
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.detail-book-back-button:hover {
+    background-color: #333;
+}

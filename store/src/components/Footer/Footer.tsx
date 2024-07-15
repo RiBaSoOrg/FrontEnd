@@ -7,10 +7,10 @@ const Footer: React.FC = () => {
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-section">
-          <Link to="/about" className="nav-button">About</Link>
+          <Link to="/about" className="">About</Link>
         </div>
         <div className="footer-section">
-          <Link to="https://datenschutz.htw-berlin.de/" className="nav-button">Legal Notice</Link>
+          <Link to="https://datenschutz.htw-berlin.de/" className="">Legal Notice</Link>
         </div>
       </div>
     </footer>

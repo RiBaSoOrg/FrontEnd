@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import { AppHeader } from './components/Header/AppHeader';
 import Footer from './components/Footer/Footer'; // Importiere die Footer-Komponente
 import { Outlet } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import { store, persistor } from './store';
+import AppHeader from "./components/NavBar/AppHeader";
 
 // Definiere die Haupt-App-Komponente
 export const App: React.FC = () => {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import BooksList from './BooksList/BooksList';
+import BooksList from './BooksList';
 
 interface BookListsContainerProps {
   minpage: 0 | 301// Minimalwert der Seitenanzahl für Bücher (0 für Shortstories, 301 für Novels)

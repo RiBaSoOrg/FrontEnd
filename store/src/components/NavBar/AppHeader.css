@@ -56,11 +56,20 @@
   font-size: 45px; /* Change this value to resize the text */
   color: white; /* Ensure the text color is white */
   margin-left: 10px; /* Optional: Adjust spacing between logo and text */
-  transition: color 0.3s; /* Smooth transition for color change */
+  transition: color 0.3s, background 0.3s; /* Smooth transition for color and background change */
+  background: none; /* Ensure no background gradient by default */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: white;
+  background-clip: text;
+  text-fill-color: white;
 }
 
 .bookstore-text-link:hover .bookstore-text {
-  color: gray; /* Change this color to your desired hover color */
+  background: linear-gradient(45deg, #ff6ec4, #61dafb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
 }
 
 .nav-button {
@@ -96,6 +105,7 @@
   text-decoration: none;
   font-size: 1.5em; /* Increase icon size */
   position: relative; /* Ensure the cart count dot positions correctly */
+  background: transparent; /* Make the background transparent */
 }
 
 .login-icon:hover, .cart-button:hover {

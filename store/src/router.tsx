@@ -1,7 +1,7 @@
 // src/router.tsx
 import { createBrowserRouter, RouteObject } from "react-router-dom";
 import App from "./App";
-import BookListsContainer from './components/BooksListsContainer';
+import BookListsContainer from './components/BooksList/BooksListsContainer';
 import AddBookScreen from './components/AddBookScreen/AddBookScreen';
 import AboutScreen from './components/AboutPage/AboutScreen';
 import ErrorScreen from './components/ErrorScreen/ErrorScreen';

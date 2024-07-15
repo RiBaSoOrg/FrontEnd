@@ -80,13 +80,13 @@ const DetailBookScreen = () => {
             <div className="detail-book-info"><strong>Number of Pages:</strong> {book.numPages}</div>
             <div className="detail-book-info"><strong>Abstract:</strong> {book.abstract}</div>
             <div className="detail-book-footer">
-                <button className="detail-book-back-button" onClick={handleReturn}>Zurück zur Liste</button>
+                <button className="detail-book-back-button" onClick={handleReturn}>Back</button>
 
                 {userRole === 'admin' && (
                     <button className="detail-book-edit-button" onClick={handleEditClick}>Edit Book</button>  /* Bearbeiten-Button für Admins */
                 )}
                 {(
-                    <button className="detail-book-edit-button" onClick={handleAddToCart}>Add to Cart</button> /* In den Einkaufswagen legen-Button für Nicht-Admins */
+                    <button className="detail-add-to-cart-button" onClick={handleAddToCart}>Add to Cart</button> /* In den Einkaufswagen legen-Button für Nicht-Admins */
                 )}
 
             </div>

@@ -32,6 +32,9 @@
 .detail-book-footer {
     text-align: center;
     margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Add a gap between buttons */
 }
 
 .detail-book-back-button {
@@ -41,9 +44,18 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, background 0.3s; /* Add background transition */
+    margin: 0 5px; /* Add margin to each button */
 }
 
 .detail-book-back-button:hover {
-    background-color: #333;
+    background: linear-gradient(45deg, #ff6ec4, #61dafb); /* Gradient background on hover */
+}
+
+.detail-add-to-cart-button:hover {
+    background: linear-gradient(45deg, #ff6ec4, #61dafb); /* Gradient background on hover */
+}
+
+.detail-book-edit-button:hover {
+    background:linear-gradient(45deg, indianred,lightcoral );
 }

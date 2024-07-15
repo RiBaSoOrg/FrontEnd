@@ -114,3 +114,7 @@
 .buy-button:hover {
   background: linear-gradient(45deg, #ff6ec4, #61dafb);
 }
+
+.remove-button:hover {
+  background: linear-gradient(45deg, indianred,lightcoral);
+}

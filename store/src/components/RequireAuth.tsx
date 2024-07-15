@@ -6,7 +6,7 @@ import { faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
 import { List, X } from 'react-feather';
 import {RootState} from "../store";
 import {logout} from "../slices/authSlice";
-import logo from '..//Bookiconround.png'; // Corrected path to the logo
+import logo from '../assets/Bookiconround.png'; // Corrected path to the logo
 
 export const AppHeader: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);

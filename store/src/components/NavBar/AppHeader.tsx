@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import logo from '../../Bookiconround.png';
+import logo from '../../assets/Bookiconround.png';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../store';
-import { logout } from '../../slices/authSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
 import { List, X } from 'react-feather';
 import './AppHeader.css';
+import { RootState } from "../../store";
+import { logout } from "../../slices/authSlice"; // Corrected path to the CSS file
 
 export const AppHeader: React.FC = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -41,7 +41,7 @@ export const AppHeader: React.FC = () => {
             )}
             <div className="logo-section">
                 <img src={logo} className="App-logo" alt="Bookstore Logo" />
-                <h1>Bookstore</h1>
+                <h1 className="bookstore-text">Bookstore</h1>
             </div>
             <div className="right-section">
                 {userRole === 'admin' && (
@@ -56,7 +56,9 @@ export const AppHeader: React.FC = () => {
                 )}
                 <button className="cart-button" onClick={() => setIsCartOpen(!isCartOpen)}>
                     <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
-                    <span className="cart-item-count">{totalItems}</span>
+                    {totalItems > 0 && (
+                        <span className="cart-item-count">{totalItems}</span>
+                    )}
                 </button>
             </div>
         </header>

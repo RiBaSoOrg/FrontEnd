@@ -1,6 +1,7 @@
 .AppHeader {
   background-color: #000000;
-  padding: 20px;
+  height: 90px; /* Set a fixed height for the navbar */
+  padding: 10px 20px; /* Adjust padding as needed */
   color: white;
   display: flex;
   align-items: center;
@@ -11,6 +12,7 @@
   z-index: 1000;
   box-sizing: border-box; /* Include padding and border in element's total width and height */
 }
+
 
 .hamburger {
   cursor: pointer;
@@ -103,6 +105,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.bookstore-text {
+  font-size: 45px; /* Change this value to resize the text */
+  margin-left: 10px; /* Optional: Adjust spacing between logo and text */
 }
 
 @media (max-width: 768px) {

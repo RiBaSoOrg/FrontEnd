@@ -7,12 +7,12 @@ import AboutScreen from './components/AboutPage/AboutScreen';
 import ErrorScreen from './components/ErrorScreen/ErrorScreen';
 import DetailBookScreen from './components/DetailBookScreen/DetailBookScreen';
 import EditBookScreen from "./components/EditBookScreen/EditBookScreen";
-import LoginScreen from './components/LoginScreen/LoginScreen';
 import RequireAuth from './components/RequireAuth';
 import ThankYouPage from './components/ThankYouPage/ThankYouPage';
 import WelcomeScreen from './components/WelcomePage/WelcomeScreen';
 import Redirect from './components/Redirect';
 import ShopPage from "./components/ShopPage/shopPage";
+import LoginScreen from "./components/LoginScreen/LoginScreen";
 
 // Definiere die geschützten Routen, die Authentifizierung erfordern
 const protectedRoutes: RouteObject[] = [
@@ -42,6 +42,10 @@ export const router = createBrowserRouter([
       {
         path: "shop",
         element: <ShopPage />
+      },
+      {
+        path: "login",
+        element: <LoginScreen />
       },
       {
         path: "about",

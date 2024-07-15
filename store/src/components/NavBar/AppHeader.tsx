@@ -41,7 +41,9 @@ export const AppHeader: React.FC = () => {
             )}
             <div className="logo-section">
                 <img src={logo} className="App-logo" alt="Bookstore Logo" />
-                <h1 className="bookstore-text">Bookstore</h1>
+                <Link to="/shop" className="bookstore-text-link">
+                    <h1 className="bookstore-text">Bookstore</h1>
+                </Link>
             </div>
             <div className="right-section">
                 {userRole === 'admin' && (

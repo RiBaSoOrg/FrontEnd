@@ -13,7 +13,6 @@
   box-sizing: border-box; /* Include padding and border in element's total width and height */
 }
 
-
 .hamburger {
   cursor: pointer;
   display: flex;
@@ -47,6 +46,21 @@
 .App-logo {
   height: 50px;
   width: 50px;
+}
+
+.bookstore-text-link {
+  text-decoration: none; /* Remove underline */
+}
+
+.bookstore-text {
+  font-size: 45px; /* Change this value to resize the text */
+  color: white; /* Ensure the text color is white */
+  margin-left: 10px; /* Optional: Adjust spacing between logo and text */
+  transition: color 0.3s; /* Smooth transition for color change */
+}
+
+.bookstore-text-link:hover .bookstore-text {
+  color: gray; /* Change this color to your desired hover color */
 }
 
 .nav-button {
@@ -107,14 +121,10 @@
   justify-content: center;
 }
 
-.bookstore-text {
-  font-size: 45px; /* Change this value to resize the text */
-  margin-left: 10px; /* Optional: Adjust spacing between logo and text */
-}
-
 @media (max-width: 768px) {
   .AppHeader {
     flex-direction: column;
+    height: auto; /* Adjust height for smaller screens */
   }
 
   .right-section {

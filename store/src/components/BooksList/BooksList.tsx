@@ -21,7 +21,7 @@ interface BooksListProps {
 // Definiert die BooksList-Komponente als Funktionale Komponente mit den Eigenschaften von BooksListProps
 const BooksList: React.FC<BooksListProps> = ({ minpage, maxpage, likes, onLikeClick, backgroundClass }) => {
     // Verwendet den useBooks-Hook, um Bücher und Zustandswerte basierend auf den Seitenzahlgrenzen abzurufen
-    const { books, state, error, page, totalPages, goToNextPage, goToPreviousPage, goToFirstPage, goToLastPage } = useBooks(minpage, maxpage);
+    const { books, state, error } = useBooks(minpage, maxpage);
     const navigate = useNavigate();  // Verwendet den useNavigate-Hook von React Router, um Navigationen durchzuführen
 
     // Funktion, die aufgerufen wird, wenn ein Buch angeklickt wird

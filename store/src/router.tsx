@@ -16,16 +16,6 @@ import Redirect from './components/Redirect';
 // Definiere die geschützten Routen, die Authentifizierung erfordern
 const protectedRoutes: RouteObject[] = [
   {
-    path: "novel-bookstore",
-    element: <BookListsContainer minpage={301} maxpage={9999999999} />,
-    errorElement: <ErrorScreen />,
-  },
-  {
-    path: "shortstory-bookstore",
-    element: <BookListsContainer minpage={0} maxpage={300} />,
-    errorElement: <ErrorScreen />,
-  },
-  {
     path: "add-book",
     element: <AddBookScreen />,
     errorElement: <ErrorScreen />,
@@ -33,21 +23,6 @@ const protectedRoutes: RouteObject[] = [
   {
     path: "edit-book/:id",
     element: <EditBookScreen />,
-    errorElement: <ErrorScreen />,
-  },
-  {
-    path: "detail-book/:id",
-    element: <DetailBookScreen />,
-    errorElement: <ErrorScreen />,
-  },
-  {
-    path: "thank-you",
-    element: <ThankYouPage />,
-    errorElement: <ErrorScreen />,
-  },
-  {
-    path: "welcome",
-    element: <WelcomeScreen />,
     errorElement: <ErrorScreen />,
   }
 ];
@@ -76,6 +51,31 @@ export const router = createBrowserRouter([
         path: "",
         element: <RequireAuth />, // Komponente zum Schutz der Routen
         children: protectedRoutes // Geschützte Routen als Kinder
+      },
+      {
+        path: "novel-bookstore",
+        element: <BookListsContainer minpage={301} maxpage={9999999999} />,
+        errorElement: <ErrorScreen />,
+      },
+      {
+        path: "shortstory-bookstore",
+        element: <BookListsContainer minpage={0} maxpage={300} />,
+        errorElement: <ErrorScreen />,
+      },
+      {
+        path: "detail-book/:id",
+        element: <DetailBookScreen />,
+        errorElement: <ErrorScreen />,
+      },
+      {
+        path: "thank-you",
+        element: <ThankYouPage />,
+        errorElement: <ErrorScreen />,
+      },
+      {
+        path: "welcome",
+        element: <WelcomeScreen />,
+        errorElement: <ErrorScreen />,
       }
     ]
   }

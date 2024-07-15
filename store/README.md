@@ -1,15 +1,3 @@
-LoginCredentials
-admin@bookmonkey.api
-pw:admin
-customer@bookmonkey.api
-pw:customer
-
-muss in bookmonkey extra hinterlegt und geändert werden (bisschen dumm)
-schneller db.json einfügen("datenbank" von bookmonkey mit allen daten books and users)
-C:\Users\{username}\AppData\Roaming\npm\node_modules\bookmonkey-api
-
-
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

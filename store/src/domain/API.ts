@@ -114,7 +114,7 @@ interface LoginCredentials {
 // Interface für Benutzerinformationen
 interface User {
     email: string;
-    password: string; // Hash-Passwort
+    password: string; // Hash-Passwort 
     id: number;
     role: string;
 }

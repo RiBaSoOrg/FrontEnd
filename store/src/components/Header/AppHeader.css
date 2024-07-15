@@ -49,15 +49,13 @@
   background: linear-gradient(45deg, #ff6ec4, #61dafb);
 }
 
-
-
 .cart-section {
   display: flex;
   align-items: center;
 }
 
 .cart-button {
-  background: transparent;
+  background: linear-gradient(45deg, #61dafb, #ff6ec4);
   color: white;
   border: none;
   padding: 10px 20px;

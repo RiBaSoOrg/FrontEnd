@@ -1,17 +1,17 @@
 import React from 'react';
-import './Cart.css';
+import './CartOverlay.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { removeFromCart, clearCart } from '../../slices/cartSlice';
 import { useNavigate } from 'react-router-dom'; 
 
-// Definiert die Eigenschaften (Props), die die Cart-Komponente erwartet
+// Definiert die Eigenschaften (Props), die die CartOverlay-Komponente erwartet
 interface CartOverlayProps {
   onClose: () => void; // Funktion, die aufgerufen wird, um das Overlay zu schließen
 }
 
-// Definiert die Cart-Komponente als Funktionale Komponente mit den Eigenschaften von CartOverlayProps
-const Cart: React.FC<CartOverlayProps> = ({ onClose }) => {
+// Definiert die CartOverlay-Komponente als Funktionale Komponente mit den Eigenschaften von CartOverlayProps
+const CartOverlay: React.FC<CartOverlayProps> = ({ onClose }) => {
   const cart = useSelector((state: RootState) => state.cart.cart); // Verwendet den useCart-Hook, um auf den Einkaufswagen und die Funktionen zum Entfernen und Leeren zuzugreifen
   const dispatch = useDispatch();
   const navigate = useNavigate(); // Verwendet den useNavigate-Hook von React Router, um Navigationen durchzuführen
@@ -62,4 +62,4 @@ const Cart: React.FC<CartOverlayProps> = ({ onClose }) => {
   );
 };
 
-export default Cart;
+export default CartOverlay;

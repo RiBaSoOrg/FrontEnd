@@ -68,6 +68,13 @@ const BooksList: React.FC<BooksListProps> = ({ minpage, maxpage, likes, onLikeCl
           />
         ))}
       </div>
+      <div className="pagination-buttons">
+        {/* Paginierungsbuttons mit entsprechender Funktion und Deaktivierung */}
+        <button onClick={goToFirstPage} disabled={page === 1}>Erste Seite</button>
+        <button onClick={goToPreviousPage} disabled={page === 1}>Vorherige Seite</button>
+        <button onClick={goToNextPage} disabled={page === totalPages}>Nächste Seite</button>
+        <button onClick={goToLastPage} disabled={page === totalPages}>Letzte Seite</button>
+      </div>
     </div>
   );
 };

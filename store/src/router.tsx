@@ -12,11 +12,19 @@ import RequireAuth from './components/RequireAuth';
 import ThankYouPage from './components/ThankYouPage/ThankYouPage';
 import WelcomeScreen from './components/WelcomeScreen/WelcomeScreen';
 import Redirect from './components/Redirect';
-import ShopPage from "./components/ShopPage/shopPage";
-import {LogIn} from "react-feather";
 
 // Definiere die geschützten Routen, die Authentifizierung erfordern
 const protectedRoutes: RouteObject[] = [
+  {
+    path: "novel-bookstore",
+    element: <BookListsContainer minpage={301} maxpage={9999999999} />,
+    errorElement: <ErrorScreen />,
+  },
+  {
+    path: "shortstory-bookstore",
+    element: <BookListsContainer minpage={0} maxpage={300} />,
+    errorElement: <ErrorScreen />,
+  },
   {
     path: "add-book",
     element: <AddBookScreen />,
@@ -25,6 +33,16 @@ const protectedRoutes: RouteObject[] = [
   {
     path: "edit-book/:id",
     element: <EditBookScreen />,
+    errorElement: <ErrorScreen />,
+  },
+  {
+    path: "detail-book/:id",
+    element: <DetailBookScreen />,
+    errorElement: <ErrorScreen />,
+  },
+  {
+    path: "thank-you",
+    element: <ThankYouPage />,
     errorElement: <ErrorScreen />,
   },
   {
@@ -46,11 +64,6 @@ export const router = createBrowserRouter([
         element: <Redirect />   // Verwenden der Redirect-Komponente
       },
       {
-        path: "shop",
-        element: <ShopPage />,
-        errorElement: <ErrorScreen />,
-      },
-      {
         path: "login",
         element: <LoginScreen />
       },
@@ -63,26 +76,6 @@ export const router = createBrowserRouter([
         path: "",
         element: <RequireAuth />, // Komponente zum Schutz der Routen
         children: protectedRoutes // Geschützte Routen als Kinder
-      },
-      {
-        path: "novel-bookstore",
-        element: <BookListsContainer minpage={301} maxpage={9999999999} />,
-        errorElement: <ErrorScreen />,
-      },
-      {
-        path: "shortstory-bookstore",
-        element: <BookListsContainer minpage={0} maxpage={300} />,
-        errorElement: <ErrorScreen />,
-      },
-      {
-        path: "detail-book/:id",
-        element: <DetailBookScreen />,
-        errorElement: <ErrorScreen />,
-      },
-      {
-        path: "thank-you",
-        element: <ThankYouPage />,
-        errorElement: <ErrorScreen />,
       }
     ]
   }

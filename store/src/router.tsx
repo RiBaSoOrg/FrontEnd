@@ -48,14 +48,14 @@ export const router = createBrowserRouter([
         element: <LoginScreen />
       },
       {
-        path: "about",
-        element: <AboutScreen />,
+        path: "detail-book/:id",
+        element: <DetailBookScreen />,
         errorElement: <ErrorScreen />,
       },
       {
-        path: "",
-        element: <RequireAuth />, // Komponente zum Schutz der Routen
-        children: protectedRoutes // Geschützte Routen als Kinder
+        path: "about",
+        element: <AboutScreen />,
+        errorElement: <ErrorScreen />,
       },
       {
         path: "novel-bookstore",
@@ -81,6 +81,11 @@ export const router = createBrowserRouter([
         path: "welcome",
         element: <WelcomeScreen />,
         errorElement: <ErrorScreen />,
+      },
+      {
+        path: "",
+        element: <RequireAuth />, // Komponente zum Schutz der Routen
+        children: protectedRoutes // Geschützte Routen als Kinder
       }
     ]
   }

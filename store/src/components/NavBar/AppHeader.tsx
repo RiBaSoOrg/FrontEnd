@@ -7,7 +7,9 @@ import { faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
 import { List, X } from 'react-feather';
 import './AppHeader.css';
 import { RootState } from "../../store";
-import { logout } from "../../slices/authSlice"; // Corrected path to the CSS file
+import { logout } from "../../slices/authSlice";
+import CartOverlay from "../CartPage/Cart"; // Corrected path to the CSS file
+import AddBookScreen from "../AddBookScreen/AddBookScreen";
 
 export const AppHeader: React.FC = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -63,6 +65,7 @@ export const AppHeader: React.FC = () => {
                     )}
                 </button>
             </div>
+            {isCartOpen && <CartOverlay onClose={() => setIsCartOpen(false)} />}
         </header>
     );
 };

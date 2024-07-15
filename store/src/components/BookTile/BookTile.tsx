@@ -30,25 +30,26 @@ const BookTile: React.FC<BookTileProps> = ({ book, onImageClick, onLikeClick, li
   } as React.CSSProperties;
 
   return (
-    <div className="book-tile">
-      {/* Bedingtes Rendering des Buchbildes oder eines Platzhalters */}
-      {book.cover === "" ? (
-        <p onClick={() => onImageClick(book)}>No image</p> // Platzhaltertext, wenn kein Bild vorhanden ist
-      ) : (
-        <img src={book.cover} alt={book.title} onClick={() => onImageClick(book)} /> // Bild des Buches mit Klick-Handler
+      <div className="book-tile">
+        {/* Bedingtes Rendering des Buchbildes oder eines Platzhalters */}
+        {book.cover === "" ? (
+            <p onClick={() => onImageClick(book)}>No image</p> // Platzhaltertext, wenn kein Bild vorhanden ist
+        ) : (
+            <img src={book.cover} alt={book.title} onClick={() => onImageClick(book)} /> // Bild des Buches mit Klick-Handler
 
-      )}
-      <div className="book-details">
-        <div className="book-title">{book.title}</div>
-        <div className="book-author">by {book.author}</div>
-        <div className="book-publisher">Publisher: {book.publisher}</div>
-        <div className="book-price">{book.price}</div>
-        <div className={`heart-icon ${clicked ? 'clicked' : ''}`} onClick={handleClick} style={likeCountStyle}>
-          <FontAwesomeIcon icon={faHeart} />
-          <span className="like-count">{likes}</span>
+        )}
+        <div className="book-details">
+          <div className="book-title">{book.title}</div>
+          <div className="book-author">by {book.author}</div>
+          <div className="book-publisher">Publisher: {book.publisher}</div>
+          <div className="book-price">{book.price}</div>
+
+          <div className={`heart-icon ${clicked ? 'clicked' : ''}`} onClick={handleClick} style={likeCountStyle}>
+            <FontAwesomeIcon icon={faHeart} />
+            <span className="like-count">{likes}</span>
+          </div>
         </div>
       </div>
-    </div>
   );
 };
 

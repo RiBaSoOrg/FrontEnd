@@ -85,7 +85,7 @@ const DetailBookScreen = () => {
                 {userRole === 'admin' && (
                     <button className="detail-book-edit-button" onClick={handleEditClick}>Edit Book</button>  /* Bearbeiten-Button für Admins */
                 )}
-                {userRole === 'non-admin' && (
+                {(
                     <button className="detail-book-edit-button" onClick={handleAddToCart}>Add to Cart</button> /* In den Einkaufswagen legen-Button für Nicht-Admins */
                 )}
 

@@ -9,7 +9,7 @@ import { RootState } from '../../store';
 import { addToCart } from '../../slices/cartSlice';
 
 
-// Definiert die DetailBookScreen-Komponente als Funktionale Komponente
+// Definiert die DetailBookScreen.tsx-Komponente als Funktionale Komponente
 const DetailBookScreen = () => {
     const { id } = useParams<{ id?: string }>();  // Holt die ID aus den URL-Parametern
     const location = useLocation();  // Holt den aktuellen Standort

@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import { Book } from '../../domain/Book';
-import './BookTile.css'
+import './BookTile.css';
 
-// Definiert die Eigenschaften (Props), die die BookTile-Komponente erwartet
 interface BookTileProps {
   book: Book;
-  onImageClick: (book: Book) => void; // Funktion, die aufgerufen wird, wenn auf das Buchbild geklickt wird
-  onLikeClick: () => void;  // Funktion, die aufgerufen wird, wenn auf das Like-Icon geklickt wird
-  likes: number; // Anzahl der Likes für das Buch
+  onImageClick: (book: Book) => void;
+  onLikeClick: () => void;
+  onAddToCartClick: () => void;
+  likes: number;
+  cartCount: number;
 }
-// Definiert die BookTile-Komponente als Funktionale Komponente mit den Eigenschaften von BookTileProps
-const BookTile: React.FC<BookTileProps> = ({ book, onImageClick, onLikeClick, likes }) => {
-  const [clicked, setClicked] = useState(false);  // Lokaler Zustand, um den Klickzustand des Like-Icons zu verfolgen
 
-  // Funktion, die aufgerufen wird, wenn auf das Like-Icon geklickt wird
+const BookTile: React.FC<BookTileProps> = ({ book, onImageClick, onLikeClick, onAddToCartClick, likes, cartCount }) => {
+  const [clicked, setClicked] = useState(false);
+
   const handleClick = () => {
     onLikeClick();
     setClicked(true);
@@ -24,30 +24,31 @@ const BookTile: React.FC<BookTileProps> = ({ book, onImageClick, onLikeClick, li
     }, 500);
   };
 
-  // Setze eine CSS-Variable für die Länge der Like-Zahl
   const likeCountStyle = {
-    '--length': likes.toString().length, // Definiert die Länge der Like-Zahl als CSS-Variable
+    '--length': likes.toString().length,
   } as React.CSSProperties;
 
   return (
       <div className="book-tile">
-        {/* Bedingtes Rendering des Buchbildes oder eines Platzhalters */}
         {book.cover === "" ? (
-            <p onClick={() => onImageClick(book)}>No image</p> // Platzhaltertext, wenn kein Bild vorhanden ist
+            <p onClick={() => onImageClick(book)}>No image</p>
         ) : (
-            <img src={book.cover} alt={book.title} onClick={() => onImageClick(book)} /> // Bild des Buches mit Klick-Handler
-
+            <img src={book.cover} alt={book.title} onClick={() => onImageClick(book)} className="book-image" />
         )}
         <div className="book-details">
           <div className="book-title">{book.title}</div>
           <div className="book-author">by {book.author}</div>
           <div className="book-publisher">Publisher: {book.publisher}</div>
           <div className="book-price">{book.price}</div>
-
           <div className={`heart-icon ${clicked ? 'clicked' : ''}`} onClick={handleClick} style={likeCountStyle}>
             <FontAwesomeIcon icon={faHeart} />
             <span className="like-count">{likes}</span>
           </div>
+          <button className="add-to-cart-button" onClick={onAddToCartClick}>
+            <FontAwesomeIcon icon={faCartPlus} />
+            {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+            Add to Cart
+          </button>
         </div>
       </div>
   );

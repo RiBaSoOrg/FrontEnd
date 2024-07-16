@@ -22,6 +22,7 @@ const BooksList: React.FC<BooksListProps> = ({ minpage, maxpage, backgroundClass
     const dispatch = useDispatch<AppDispatch>();
     const cart = useSelector((state: RootState) => state.cart.cart);
     const basketId = useSelector((state: RootState) => state.cart.basketId);
+    const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
 
     const handleBookClick = (book: Book) => {
         navigate('/detail-book/' + book.id, { state: { book, list: book.numPages < 301 ? 'shortstory-bookstore' : 'novel-bookstore' } });
@@ -30,14 +31,17 @@ const BooksList: React.FC<BooksListProps> = ({ minpage, maxpage, backgroundClass
     const handleAddToCartClick = async (book: Book) => {
         const store = book.numPages < 301 ? 'Shortstories' : 'Novels';
         // Ensure basket exists before adding items to it
-        if (!basketId) {
-            const resultAction = await dispatch(createBasketThunk('user123'));
-            if (createBasketThunk.fulfilled.match(resultAction)) {
-                const newBasketId = resultAction.payload;
-                dispatch(addItemToBasketThunk({ basketID: newBasketId, itemID: book.id, amount: 1 }));
+        if (isAuthenticated) {
+            if (!basketId) {   //TODO: isAuthenticated
+                //TODO:user123 durch aktuell eingeloggten user ersetzen logick wenn kein user eingeloggt ist
+                const resultAction = await dispatch(createBasketThunk('user123'));
+                if (createBasketThunk.fulfilled.match(resultAction)) {
+                    const newBasketId = resultAction.payload;
+                    dispatch(addItemToBasketThunk({ basketID: newBasketId, itemID: book.id, amount: 1 }));
+                }
+            } else {
+                dispatch(addItemToBasketThunk({ basketID: basketId, itemID: book.id, amount: 1 }));
             }
-        } else {
-            dispatch(addItemToBasketThunk({ basketID: basketId, itemID: book.id, amount: 1 }));
         }
         dispatch(addToCart({ book, store })); // This updates the local state
     };

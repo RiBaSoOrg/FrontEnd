@@ -17,6 +17,8 @@ const CartOverlay: React.FC<CartOverlayProps> = ({ onClose }) => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const basketId = useSelector((state: RootState) => state.cart.basketId);
+  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+
 
   const totalPrice = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
 
@@ -26,17 +28,17 @@ const CartOverlay: React.FC<CartOverlayProps> = ({ onClose }) => {
   };
 
   const handleRemoveFromCartClick = (item: CartItem) => {
-    if (basketId) {
+    if (isAuthenticated && basketId) {
       dispatch(removeItemFromBasketThunk({ basketID: basketId, itemID: item.id, amount: 1 }));
-      dispatch(removeFromCart(item.id));
     }
+    dispatch(removeFromCart(item.id));
   };
 
   const handleClearCartClick = () => {
-    if (basketId) {
+    if (isAuthenticated && basketId) {
       dispatch(clearBasketThunk(basketId));
-      dispatch(clearCart());
     }
+    dispatch(clearCart());
   };
 
   return (

@@ -9,7 +9,7 @@ import DetailBookScreen from './components/DetailBookScreen/DetailBookScreen';
 import EditBookScreen from "./components/EditBookScreen/EditBookScreen";
 import RequireAuth from './components/RequireAuth';
 import ThankYouPage from './components/ThankYouPage/ThankYouPage';
-import WelcomeScreen from './components/WelcomePage/WelcomeScreen';
+import WelcomeScreen from './components/UserPage/WelcomeScreen';
 import Redirect from './components/Redirect';
 import ShopPage from "./components/ShopPage/shopPage";
 import LoginScreen from "./components/LoginScreen/LoginScreen";

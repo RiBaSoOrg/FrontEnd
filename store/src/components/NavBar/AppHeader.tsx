@@ -18,10 +18,6 @@ export const AppHeader: React.FC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleLogout = () => {
-        dispatch(logout());
-        navigate('/');
-    };
 
     const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
 
@@ -38,9 +34,6 @@ export const AppHeader: React.FC = () => {
                 <div className={`links ${menuOpen ? 'open' : ''}`}>
                     <Link to="/shortstory-bookstore" className="nav-button" onClick={toggleMenu}>Shortstories</Link>
                     <Link to="/novel-bookstore" className="nav-button" onClick={toggleMenu}>Novels</Link>
-                    {isAuthenticated && (
-                        <button onClick={handleLogout} className="nav-button logout-button">Logout</button>
-                    )}
                 </div>
             )}
             <div className="logo-section">
@@ -53,7 +46,7 @@ export const AppHeader: React.FC = () => {
                 {userRole === 'admin' && (
                     <Link to="/add-book" className="nav-button">Add New Book</Link>
                 )}
-                <Link to={isAuthenticated ? "/user-page" : "/login"} className="login-icon">
+                <Link to={isAuthenticated ? "/welcome" : "/login"} className="login-icon">
                     <FontAwesomeIcon icon={faUser} />
                 </Link>
                 <button className="cart-button" onClick={() => setIsCartOpen(!isCartOpen)}>

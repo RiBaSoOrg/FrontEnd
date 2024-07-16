@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Book } from '../../domain/Book';
 import './BooksList.css';
-import useBooks from '../../domain/hooks';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../../slices/cartSlice';
+import { addItemToBasketThunk, addToCart, createBasketThunk } from '../../slices/cartSlice';
 import BookTile from "../BookTile/BookTile";
-import { RootState } from '../../store';
+import { AppDispatch, RootState } from '../../store';
+import useBooks from '../../domain/Hooks/BookHooks';
+import { Book } from '../../domain/Interfaces/Book';
 
 interface BooksListProps {
     minpage: 0 | 301;
@@ -19,17 +19,29 @@ interface BooksListProps {
 const BooksList: React.FC<BooksListProps> = ({ minpage, maxpage, backgroundClass }) => {
     const { books, state, error } = useBooks(minpage, maxpage);
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const cart = useSelector((state: RootState) => state.cart.cart);
+    const basketId = useSelector((state: RootState) => state.cart.basketId);
 
     const handleBookClick = (book: Book) => {
         navigate('/detail-book/' + book.id, { state: { book, list: book.numPages < 301 ? 'shortstory-bookstore' : 'novel-bookstore' } });
     };
 
-    const handleAddToCartClick = (book: Book) => {
+    const handleAddToCartClick = async (book: Book) => {
         const store = book.numPages < 301 ? 'Shortstories' : 'Novels';
-        dispatch(addToCart({ book, store }));
+        // Ensure basket exists before adding items to it
+        if (!basketId) {
+            const resultAction = await dispatch(createBasketThunk('user123'));
+            if (createBasketThunk.fulfilled.match(resultAction)) {
+                const newBasketId = resultAction.payload;
+                dispatch(addItemToBasketThunk({ basketID: newBasketId, itemID: book.id, amount: 1 }));
+            }
+        } else {
+            dispatch(addItemToBasketThunk({ basketID: basketId, itemID: book.id, amount: 1 }));
+        }
+        dispatch(addToCart({ book, store })); // This updates the local state
     };
+
 
     const getCartCount = (bookId: string) => {
         const item = cart.find(item => item.id === bookId);

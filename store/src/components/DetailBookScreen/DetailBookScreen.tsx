@@ -3,7 +3,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import { Book } from '../../domain/Book';
 import './DetailBookScreen.css';
 import { useNavigate } from 'react-router-dom';
-import { requestBookByISBN } from '../../domain/BookAPI'; 
+import { requestBookByISBN } from '../../domain/APIs/BookAPI'; 
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { addToCart } from '../../slices/cartSlice';

@@ -1,7 +1,7 @@
 // hooks.ts
 import { useState, useEffect, useCallback } from 'react';
-import { requestAllBooks, PaginationLinks } from './BookAPI';
-import { Book } from './Book';
+import { requestAllBooks, PaginationLinks } from '../APIs/BookAPI';
+import { Book } from '../Interfaces/Book';
 import { useLocation } from 'react-router-dom';
 
 
@@ -14,13 +14,10 @@ const useBooks = (minPage: number, maxPage: number) => {
     const [state, setState] = useState<FetchState>('initial');
     // State: zum Speichern aller Fehler, die während des Abrufs auftreten
     const [error, setError] = useState<Error | null>(null);
-    const [page, setPage] = useState<number>(1);
-    const [totalPages, setTotalPages] = useState<number>(1);
-    const [paginationLinks, setPaginationLinks] = useState<PaginationLinks>({});
     const location = useLocation();
 
     // Funktion zum Abrufen von Büchern von der API
-    const fetchBooks = useCallback(async (minpage: number, maxpage: number, pageNumber: number) => {
+    const fetchBooks = useCallback(async (minpage: number, maxpage: number) => {
         // State als geladen setzen, bevor der Abruf gestartet wird
         setState('loading');
         // Alle vorherigen Fehler zurücksetzen
@@ -31,7 +28,6 @@ const useBooks = (minPage: number, maxPage: number) => {
             const { books: fetchedBooks} = await requestAllBooks(minpage, maxpage);
             // Aktualisiere den Buchstatus mit den abgerufenen Daten
             setBooks(fetchedBooks);
-            setPage(pageNumber);
             // State nach dem Abruf auf Erfolg setzen
             setState('success');
         } catch (err) {
@@ -43,25 +39,21 @@ const useBooks = (minPage: number, maxPage: number) => {
 
     // Um Bücher alle 60 sec abzurufen
     useEffect(() => {
-        fetchBooks(minPage, maxPage, page);
+        fetchBooks(minPage, maxPage);
         const interval = setInterval(() => {
-            fetchBooks(minPage, maxPage, page);
+            fetchBooks(minPage, maxPage);
         }, 60000);
 
         return () => clearInterval(interval);
-    }, [minPage, maxPage, page, fetchBooks]);
+    }, [minPage, maxPage, fetchBooks]);
     // Reagiert auf Änderungen in der Route
     useEffect(() => {
-        fetchBooks(minPage, maxPage, 1); // Lade Bücher erneut, wenn die Route sich ändert
+        fetchBooks(minPage, maxPage); // Lade Bücher erneut, wenn die Route sich ändert
     }, [location.pathname]); // Reagiere nur auf Änderungen des Pfades
 
 
-    const goToNextPage = () => paginationLinks.next && fetchBooks(minPage, maxPage, parseInt(paginationLinks.next.split('_page=')[1], 10));
-    const goToPreviousPage = () => paginationLinks.prev && fetchBooks(minPage, maxPage, parseInt(paginationLinks.prev.split('_page=')[1], 10));
-    const goToFirstPage = () => paginationLinks.first && fetchBooks(minPage, maxPage, parseInt(paginationLinks.first.split('_page=')[1], 10));
-    const goToLastPage = () => paginationLinks.last && fetchBooks(minPage, maxPage, parseInt(paginationLinks.last.split('_page=')[1], 10));
-
-    return { books, state, error, page, totalPages, goToNextPage, goToPreviousPage, goToFirstPage, goToLastPage };
+    
+    return { books, state, error};
 }
 
 export default useBooks;

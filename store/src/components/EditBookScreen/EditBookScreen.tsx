@@ -1,7 +1,7 @@
 // EditBookScreen.tsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
-import { updateExistingBook, requestBookByISBN, deleteBook } from '../../domain/BookAPI'; // Stellen Sie sicher, dass die Pfade korrekt sind!
+import { updateExistingBook, requestBookByISBN, deleteBook } from '../../domain/APIs/BookAPI'; // Stellen Sie sicher, dass die Pfade korrekt sind!
 import { Book } from '../../domain/Book';
 import './EditBookScreen.css';
 

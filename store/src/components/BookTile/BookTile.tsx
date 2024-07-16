@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
-import { Book } from '../../domain/Book';
+import { Book } from '../../domain/Interfaces/Book';
 import './BookTile.css';
 
 interface BookTileProps {

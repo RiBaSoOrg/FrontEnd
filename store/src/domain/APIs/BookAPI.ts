@@ -1,5 +1,5 @@
 // API.js
-import { Book } from "./Book";
+import { Book } from "../Interfaces/Book";
 
 
 // Definiere den Typ für die Paginierungslinks

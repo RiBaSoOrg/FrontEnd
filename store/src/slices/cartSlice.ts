@@ -1,6 +1,9 @@
 // src/slices/cartSlice.ts
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Book } from '../domain/Book';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { addItem, createBasket } from '../domain/APIs/BasketAPI';
+import { Book } from '../domain/Interfaces/Book';
+
+
 
 // Definiere das Interface für ein einzelnes Element im Warenkorb
 interface CartItem extends Omit<Book, 'price'> {
@@ -12,12 +15,34 @@ interface CartItem extends Omit<Book, 'price'> {
 // Definiere das Interface für den Zustand des Warenkorbs
 interface CartState {
   cart: CartItem[]; // Eine Liste von CartItem-Objekten, die den Warenkorb darstellen
+  basketId: string | null;
+  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  error: string | null;
 }
 
 // Initialer Zustand des Warenkorbs
 const initialState: CartState = {
   cart: [], // Der Warenkorb ist standardmäßig leer
+  basketId: null,
+  status: 'idle',
+  error: null,
 };
+
+export const createBasketThunk = createAsyncThunk(
+  'cart/createBasket',
+  async (userId: string) => {
+    const basket = await createBasket(userId);
+    return basket.id;
+  }
+);
+
+export const addItemToBasketThunk = createAsyncThunk(
+  'cart/addItemToBasket',
+  async ({ basketID, itemID, amount }: { basketID: string; itemID: string; amount: number }) => {
+    const success = await addItem(basketID, itemID, amount);
+    return { basketID, itemID, amount };
+  }
+);
 
 // Erstelle einen Slice für den Warenkorb
 const cartSlice = createSlice({
@@ -41,6 +66,7 @@ const cartSlice = createSlice({
       const existingItem = state.cart.find(item => item.id === itemId); // Finde das Buch im Warenkorb
       if (existingItem && existingItem.quantity > 1) {
         existingItem.quantity -= 1; // Verringere die Anzahl, wenn mehr als ein Exemplar vorhanden ist
+
       } else {
         state.cart = state.cart.filter(item => item.id !== itemId);  // Entferne das Buch, wenn nur ein Exemplar vorhanden ist
       }
@@ -53,6 +79,30 @@ const cartSlice = createSlice({
     setCart: (state, action: PayloadAction<CartItem[]>) => {
       state.cart = action.payload; // Setze den Warenkorb auf die übergebene Liste
     },
+  },
+    extraReducers: (builder) => {
+      builder
+        .addCase(createBasketThunk.pending, (state) => {
+          state.status = 'loading';
+        })
+        .addCase(createBasketThunk.fulfilled, (state, action) => {
+          state.status = 'succeeded';
+          state.basketId = action.payload;
+        })
+        .addCase(createBasketThunk.rejected, (state, action) => {
+          state.status = 'failed';
+          state.error = action.error.message || null;
+        })
+        .addCase(addItemToBasketThunk.pending, (state) => {
+          state.status = 'loading';
+        })
+        .addCase(addItemToBasketThunk.fulfilled, (state, action) => {
+          state.status = 'succeeded';
+        })
+        .addCase(addItemToBasketThunk.rejected, (state, action) => {
+          state.status = 'failed';
+          state.error = action.error.message || null;
+        });
   },
 });
 

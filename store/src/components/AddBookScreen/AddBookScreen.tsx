@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './AddBookScreen.css';
-import { postNewBook } from '../../domain/API'; 
+import { postNewBook } from '../../domain/BookAPI'; 
 import { useNavigate } from 'react-router-dom';
 
 const AddBookScreen: React.FC = () => {

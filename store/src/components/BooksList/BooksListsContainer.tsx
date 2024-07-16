@@ -3,7 +3,7 @@ import BooksList from './BooksList';
 
 interface BookListsContainerProps {
   minpage: 0 | 301// Minimalwert der Seitenanzahl für Bücher (0 für Shortstories, 301 für Novels)
-  maxpage: 300 | 9999999999; // Maximalwert der Seitenanzahl für Bücher (300 für Shortstories, sehr hoher Wert für Novels)
+  maxpage: 300 | 999999; // Maximalwert der Seitenanzahl für Bücher (300 für Shortstories, sehr hoher Wert für Novels)
 }
 
 const BookListsContainer: React.FC<BookListsContainerProps> = ({ minpage , maxpage }) => {

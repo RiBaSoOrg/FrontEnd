@@ -10,7 +10,7 @@ import { RootState } from '../../store';
 
 interface BooksListProps {
     minpage: 0 | 301;
-    maxpage: 300 | 9999999999;
+    maxpage: 300 | 999999;
     backgroundClass: string;
     initialPage: number;
     onPageChange: (page: number) => void;

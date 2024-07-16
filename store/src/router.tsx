@@ -71,7 +71,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "novel-bookstore",
-        element: <BookListsContainer minpage={301} maxpage={9999999999} />,
+        element: <BookListsContainer minpage={301} maxpage={999999} />,
         errorElement: <ErrorScreen />,
       },
       {

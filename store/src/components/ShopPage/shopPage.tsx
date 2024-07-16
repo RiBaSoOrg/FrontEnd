@@ -21,7 +21,7 @@ const ShopPage: React.FC = () => {
         <div className="shop-container">
             <BooksList
                 minpage={0}
-                maxpage={9999999999}
+                maxpage={999999}
                 backgroundClass="shop-background"
                 initialPage={currentPage}
                 onPageChange={handlePageChange}

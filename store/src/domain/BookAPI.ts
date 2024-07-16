@@ -11,42 +11,42 @@ export type PaginationLinks = {
 };
 
 // Basis-URL der API
-const BASE_URL: string = 'http://localhost:4730';
+const BOOKMONKEY_URL: string = 'http://localhost:4730';
+const BOOK_URL: string = 'http://localhost:8084';
+const USER_URL: string = 'http://localhost:8083';
+
+const CHECKOUT_URL: string = 'http://localhost:8082';
 
 // Funktion zum Anfordern aller Bücher mit Paginierung und Filterung nach Seitenanzahl
-async function requestAllBooks(minpage: number, maxpage: number, page: number, limit: number): Promise<{ books: Book[], paginationLinks: PaginationLinks }> {
+
+async function requestAllBooks(minpage: number, maxpage: number): Promise<{ books: Book[]}> {
     try {
-        const response = await fetch(`${BASE_URL}/books?_sort=numPages&_order=asc&numPages_gte=${minpage}&numPages_lte=${maxpage}&_page=${page}&_limit=${limit}`);
+        const response = await fetch(`${BOOK_URL}/books?minPages=${minpage}&maxPages=${maxpage}&_sort=numPages&_order=asc`, {
+            method: 'GET',
+            headers: {
+                 'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
         const data = await response.json();
-        const paginationLinks: PaginationLinks = parseLinkHeader(response.headers.get('Link'));
-        return { books: data, paginationLinks };
+        if (!Array.isArray(data)) {
+            throw new Error('Data format is incorrect');
+        }
+        return { books: data};
+
     } catch (error) {
         console.error('Error fetching all books:', error);
         throw error;
     }
 }
 
-// Funktion zum Parsen des Link-Headers für die Paginierung
-function parseLinkHeader(header: string | null): PaginationLinks {
-    const links: PaginationLinks = {};
-    if (header) {
-        header.split(',').forEach((part) => {
-            const section = part.split(';');
-            if (section.length !== 2) {
-                return;
-            }
-            const url = section[0].replace(/<(.*)>/, '$1').trim();
-            const rel = section[1].replace(/rel="(.*)"/, '$1').trim();
-            links[rel as keyof PaginationLinks] = url;
-        });
-    }
-    return links;
-}
-
 // Funktion zum Anfordern eines Buches anhand seiner ID
 async function requestBookByID(id: string) {
     try {
-        const response: Response = await fetch(`${BASE_URL}/books/${id}`);
+        const response: Response = await fetch(`${BOOK_URL}/books/${id}`);
         const data: Book = await response.json();
         return data;
     } catch (error) {
@@ -58,7 +58,7 @@ async function requestBookByID(id: string) {
 // Funktion zum Hinzufügen eines neuen Buches
 async function postNewBook(bookData: Book) {
     try {
-        const response: Response = await fetch(`${BASE_URL}/books`, {
+        const response: Response = await fetch(`${BOOK_URL}/books`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ async function postNewBook(bookData: Book) {
 // Funktion zum Aktualisieren eines bestehenden Buches
 async function updateExistingBook(isbn: string, updatedBookData: Book) {
     try {
-        const response: Response = await fetch(`${BASE_URL}/books/${isbn}`, {
+        const response: Response = await fetch(`${BOOK_URL}/books/${isbn}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -94,7 +94,7 @@ async function updateExistingBook(isbn: string, updatedBookData: Book) {
 // Funktion zum Löschen eines Buches
 async function deleteBook(isbn: string) {
     try {
-        const response: Response = await fetch(`${BASE_URL}/books/${isbn}`, {
+        const response: Response = await fetch(`${BOOK_URL}/books/${isbn}`, {
             method: 'DELETE',
         });
         const data: Book = await response.json();
@@ -127,7 +127,7 @@ interface LoginResponse {
 // Funktion zum Einloggen eines Benutzers
 async function loginUser(credentials: LoginCredentials): Promise<LoginResponse> {
     try {
-        const response = await fetch(`${BASE_URL}/login`, {
+        const response = await fetch(`${USER_URL}/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -148,4 +148,6 @@ async function loginUser(credentials: LoginCredentials): Promise<LoginResponse> 
     }
 }
 
-export { requestAllBooks, requestBookByID as requestBookByISBN, postNewBook, updateExistingBook, deleteBook, parseLinkHeader, loginUser };
+
+
+export { requestAllBooks, requestBookByID as requestBookByISBN, postNewBook, updateExistingBook, deleteBook, loginUser };

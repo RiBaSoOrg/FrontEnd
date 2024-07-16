@@ -1,6 +1,6 @@
 // hooks.ts
 import { useState, useEffect, useCallback } from 'react';
-import { requestAllBooks, PaginationLinks } from './API';
+import { requestAllBooks, PaginationLinks } from './BookAPI';
 import { Book } from './Book';
 import { useLocation } from 'react-router-dom';
 
@@ -28,16 +28,10 @@ const useBooks = (minPage: number, maxPage: number) => {
 
         try {
             // Hole die Bücher von der API
-            const { books: fetchedBooks, paginationLinks: fetchedPaginationLinks } = await requestAllBooks(minpage, maxpage, pageNumber, 10);
+            const { books: fetchedBooks} = await requestAllBooks(minpage, maxpage);
             // Aktualisiere den Buchstatus mit den abgerufenen Daten
             setBooks(fetchedBooks);
-            setPaginationLinks(fetchedPaginationLinks);
             setPage(pageNumber);
-
-            if (fetchedPaginationLinks.last) {
-                const lastPageNumber = parseInt(fetchedPaginationLinks.last.split('_page=')[1], 10);
-                setTotalPages(lastPageNumber);
-            }
             // State nach dem Abruf auf Erfolg setzen
             setState('success');
         } catch (err) {

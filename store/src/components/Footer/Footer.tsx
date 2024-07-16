@@ -4,16 +4,16 @@ import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="footer">
-      <div className="footer-content">
-        <div className="footer-section">
-          <Link to="/about" className="">About</Link>
+      <footer className="footer">
+        <div className="footer-content">
+          <div className="footer-section">
+            <Link to="/about">About</Link>
+          </div>
+          <div className="footer-section">
+            <Link to="https://datenschutz.htw-berlin.de/">Legal Notice</Link>
+          </div>
         </div>
-        <div className="footer-section">
-          <Link to="https://datenschutz.htw-berlin.de/" className="">Legal Notice</Link>
-        </div>
-      </div>
-    </footer>
+      </footer>
   );
 };
 

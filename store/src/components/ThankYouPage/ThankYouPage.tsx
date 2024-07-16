@@ -42,7 +42,7 @@ const ThankYouPage: React.FC = () => {
             <div className="total-price">
                 <strong>Total: €{totalPrice.toFixed(2)}</strong>
             </div>
-            <button className="back-button" onClick={() => navigate('/welcome')}>Back to Home</button>
+            <button className="back-button" onClick={() => navigate('/shop')}>Back to Shop</button>
         </div>
     );
 };

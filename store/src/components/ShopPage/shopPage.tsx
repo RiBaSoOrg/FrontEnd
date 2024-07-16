@@ -22,8 +22,6 @@ const ShopPage: React.FC = () => {
             <BooksList
                 minpage={0}
                 maxpage={9999999999}
-                likes={likes}
-                onLikeClick={handleLikeClick}
                 backgroundClass="shop-background"
                 initialPage={currentPage}
                 onPageChange={handlePageChange}

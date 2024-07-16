@@ -1,5 +1,3 @@
-/* OrderPage.css */
-
 .order-overlay {
     position: fixed;
     top: 0;
@@ -21,9 +19,10 @@
     max-width: 800px;
     position: relative;
     color: black;
-    max-height: fit-content;
+    max-height: 80vh; /* Maximalhöhe setzen */
     display: flex;
     flex-direction: column;
+    overflow-y: auto; /* Scrollbar aktivieren */
     box-sizing: border-box;
 }
 
@@ -36,7 +35,9 @@
     font-size: 1.5em;
     cursor: pointer;
     color: black;
+    padding: 20px; /* Increase the clickable area */
 }
+
 
 .order-form {
     display: flex;

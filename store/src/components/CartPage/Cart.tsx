@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { removeFromCart, clearCart } from '../../slices/cartSlice';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 interface CartOverlayProps {
   onClose: () => void;
@@ -29,8 +31,8 @@ const CartOverlay: React.FC<CartOverlayProps> = ({ onClose }) => {
           {cart.length === 0 ? (
               <p>Ihr Einkaufswagen ist leer.</p>
           ) : (
-              <div>
-                <ul>
+              <div className="cart-items-container">
+                <ul className="cart-items">
                   {cart.map(item => (
                       <li key={item.id}>
                         <div className="cart-item-info">

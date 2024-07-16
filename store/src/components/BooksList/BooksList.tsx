@@ -1,4 +1,3 @@
-// BooksList.tsx
 import React, { useState, useEffect } from 'react';
 import { Book } from '../../domain/Book';
 import './BooksList.css';
@@ -12,14 +11,12 @@ import { RootState } from '../../store';
 interface BooksListProps {
     minpage: 0 | 301;
     maxpage: 300 | 9999999999;
-    likes: { [key: string]: number };
-    onLikeClick: (bookId: string) => void;
     backgroundClass: string;
     initialPage: number;
     onPageChange: (page: number) => void;
 }
 
-const BooksList: React.FC<BooksListProps> = ({ minpage, maxpage, likes, onLikeClick, backgroundClass }) => {
+const BooksList: React.FC<BooksListProps> = ({ minpage, maxpage, backgroundClass }) => {
     const { books, state, error } = useBooks(minpage, maxpage);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -27,10 +24,6 @@ const BooksList: React.FC<BooksListProps> = ({ minpage, maxpage, likes, onLikeCl
 
     const handleBookClick = (book: Book) => {
         navigate('/detail-book/' + book.id, { state: { book, list: book.numPages < 301 ? 'shortstory-bookstore' : 'novel-bookstore' } });
-    };
-
-    const handleLikeClick = (bookId: string) => {
-        onLikeClick(bookId);
     };
 
     const handleAddToCartClick = (book: Book) => {
@@ -67,11 +60,8 @@ const BooksList: React.FC<BooksListProps> = ({ minpage, maxpage, likes, onLikeCl
                         key={book.id}
                         book={book}
                         onImageClick={() => handleBookClick(book)}
-                        onLikeClick={() => handleLikeClick(book.id)}
                         onAddToCartClick={() => handleAddToCartClick(book)}
                         cartCount={getCartCount(book.id)}
-                        likes={likes[book.id] || 0}
-
                     />
                 ))}
             </div>

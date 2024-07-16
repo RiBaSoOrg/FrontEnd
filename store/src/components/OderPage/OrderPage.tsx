@@ -3,6 +3,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { clearCart } from '../../slices/cartSlice';
 import './OrderPage.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 interface CartItem {
     id: string;
@@ -108,7 +110,9 @@ const OrderPage: React.FC = () => {
     return (
         <div className="order-overlay">
             <div className="order-overlay-content">
-                <button className="close-button" onClick={() => navigate(-1)}>X</button>
+                <button className="close-button" onClick={() => navigate(-1)}>
+                    <FontAwesomeIcon icon={faTimes} />
+                </button>
                 <h2>Checkout</h2>
                 <form className="order-form" onSubmit={handleConfirmOrder}>
                     <div className="order-box">

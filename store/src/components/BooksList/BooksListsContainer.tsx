@@ -22,8 +22,6 @@ const BookListsContainer: React.FC<BookListsContainerProps> = ({ minpage , maxpa
     <BooksList
       minpage={minpage}
       maxpage={maxpage}
-      likes={likes}
-      onLikeClick={handleLikeClick}
       backgroundClass={maxpage === 300 ? 'Short-Story-Bookstore' : 'Novel-Bookstore'}
       initialPage={currentPage} // Übergeben der aktuellen Seite an die BooksList-Komponente
       onPageChange={setCurrentPage} // Funktion zum Aktualisieren der aktuellen Seite

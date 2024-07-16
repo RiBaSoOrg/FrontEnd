@@ -1,5 +1,3 @@
-/* src/components/Cart.css */
-
 .cart-overlay {
   position: fixed;
   top: 0;
@@ -18,6 +16,10 @@
   border-radius: 10px;
   width: 80%;
   max-width: 500px;
+  max-height: 80vh; /* Maximalhöhe setzen */
+  display: flex;
+  flex-direction: column; /* Inhalt vertikal anordnen */
+  overflow-y: auto; /* Scrollbar aktivieren */
   position: relative;
   color: black; /* Schriftfarbe auf schwarz setzen */
 }
@@ -30,12 +32,19 @@
   border: none;
   font-size: 1.5em;
   cursor: pointer;
-  color: black; /* Schriftfarbe auf schwarz setzen */
+  color: black;
+  padding: 20px; /* Increase the clickable area */
 }
 
-.cart-overlay ul {
+.cart-items-container {
+  flex-grow: 1; /* Nimmt den verfügbaren Platz ein */
+  overflow-y: auto; /* Scrollbar aktivieren */
+}
+
+.cart-items {
   list-style: none;
   padding: 0;
+  margin: 0; /* Entfernt den Standard-Margin */
 }
 
 .cart-overlay li {
@@ -116,5 +125,5 @@
 }
 
 .remove-button:hover {
-  background: linear-gradient(45deg, indianred,lightcoral);
+  background: linear-gradient(45deg, indianred, lightcoral);
 }

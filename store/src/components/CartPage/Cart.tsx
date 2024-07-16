@@ -6,6 +6,7 @@ import { removeFromCart, clearCart, removeItemFromBasketThunk, CartItem, clearBa
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { login } from '../../slices/authSlice';
 
 
 interface CartOverlayProps {
@@ -41,6 +42,12 @@ const CartOverlay: React.FC<CartOverlayProps> = ({ onClose }) => {
     dispatch(clearCart());
   };
 
+   // Temporary login function for testing
+   const handleLogin = () => {
+    dispatch(login({ role: 'user', token: 'test-token' }));
+  };
+
+
   return (
     <div className="cart-overlay">
       <div className="cart-overlay-content">
@@ -71,6 +78,7 @@ const CartOverlay: React.FC<CartOverlayProps> = ({ onClose }) => {
             <button onClick={handleClearCartClick} className="clear-cart-button">Clear Cart</button>
           </div>
         )}
+        <button onClick={handleLogin} className="login-button">Login (for testing)</button>
       </div>
     </div>
   );

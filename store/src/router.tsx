@@ -14,6 +14,7 @@ import Redirect from './components/Redirect';
 import ShopPage from "./components/ShopPage/shopPage";
 import LoginScreen from "./components/LoginScreen/LoginScreen";
 import OrderPage from "./components/OderPage/OrderPage";
+import Cart from "./components/CartPage/Cart";
 
 // Definiere die geschützten Routen, die Authentifizierung erfordern
 const protectedRoutes: RouteObject[] = [
@@ -53,6 +54,12 @@ export const router = createBrowserRouter([
         element: <OrderPage/>
       },
       {
+        path: "cart",
+        element: <Cart onClose={function(): void {
+            throw new Error("Function not implemented.");
+        } }/>
+      },
+      {
         path: "detail-book/:id",
         element: <DetailBookScreen />,
         errorElement: <ErrorScreen />,
@@ -70,11 +77,6 @@ export const router = createBrowserRouter([
       {
         path: "shortstory-bookstore",
         element: <BookListsContainer minpage={0} maxpage={300} />,
-        errorElement: <ErrorScreen />,
-      },
-      {
-        path: "detail-book/:id",
-        element: <DetailBookScreen />,
         errorElement: <ErrorScreen />,
       },
       {

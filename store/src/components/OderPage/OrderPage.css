@@ -1,4 +1,5 @@
 /* OrderPage.css */
+
 .order-overlay {
     position: fixed;
     top: 0;
@@ -20,7 +21,7 @@
     max-width: 800px;
     position: relative;
     color: black;
-    max-height: fit-content; /* Ensure it fits within the viewport with some margin */
+    max-height: fit-content;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -37,31 +38,33 @@
     color: black;
 }
 
-.order-boxes {
+.order-form {
     display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    margin-bottom: 20px;
     flex-wrap: wrap;
 }
 
 .order-box {
-    flex: auto;
+    flex: 1;
     background: #f9f9f9;
     padding: 20px;
     border-radius: 10px;
-    min-width: 250px;
     box-sizing: border-box;
+    margin-right: 20px; /* Adjust margin for spacing */
+    min-width: 250px;
+}
+
+.order-box:last-child {
+    margin-right: 0; /* Remove margin from the last box */
 }
 
 .order-box h3 {
     margin-top: 0;
     margin-bottom: 15px;
-    font-size: 1em; /* Schriftgröße verkleinert */
+    font-size: 1em;
 }
 
 .form-group {
-    margin-bottom: 10px; /* Margin verkleinert */
+    margin-bottom: 10px;
 }
 
 .form-group label {
@@ -69,57 +72,47 @@
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
-    font-size: 0.9em; /* Schriftgröße verkleinert */
+    font-size: 0.9em;
 }
 
 .form-group input {
     width: 100%;
-    padding: 6px; /* Padding verkleinert */
+    padding: 6px;
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 0.9em; /* Schriftgröße verkleinert */
+    font-size: 0.9em;
 }
 
 .confirm-button-container {
-    text-align: center;
-    margin-top: 10px; /* Margin verkleinert */
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Adjust as needed */
 }
 
-.confirm-button {
+/* Combine button styles */
+.button {
     background: linear-gradient(45deg, #61dafb, #ff6ec4);
     border: none;
-    padding: 8px 16px; /* Padding verkleinert */
+    padding: 8px 16px;
     cursor: pointer;
     border-radius: 5px;
     color: white;
-    font-size: 1em; /* Schriftgröße verkleinert */
+    font-size: 1em;
     transition: background 0.3s;
-    display: inline-block;
-    width: auto;
-    text-align: center;
-    margin: 0 5px; /* Add margin to each button */
+    margin: 0 10px; /* Add margin between buttons */
 }
 
-.confirm-button:hover {
+.button:hover {
     background: linear-gradient(45deg, #ff6ec4, #61dafb);
+}
+
+/* Specific button classes for semantics, if needed */
+.confirm-button {
+    /* No additional styles needed, inherit from .button */
 }
 
 .order-back-button {
-    background: linear-gradient(45deg, #61dafb, #ff6ec4);
-    border: none;
-    padding: 8px 16px; /* Padding verkleinert */
-    cursor: pointer;
-    border-radius: 5px;
-    color: white;
-    font-size: 1em; /* Schriftgröße verkleinert */
-    transition: background 0.3s;
-    display: inline-block;
-    width: auto;
-    text-align: center;
-    margin: 0 5px; /* Add margin to each button */
-}
-
-.order-back-button:hover {
-    background: linear-gradient(45deg, #ff6ec4, #61dafb);
+    /* No additional styles needed, inherit from .button */
 }

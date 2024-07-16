@@ -13,4 +13,5 @@ export const useCart = () => {
     dispatch(addItemToBasketThunk({ basketID, itemID, amount }));
 
   return { cart, createBasket, addItemToBasket };
+  
 };

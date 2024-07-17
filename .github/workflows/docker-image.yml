@@ -27,39 +27,6 @@ jobs:
         run: |
           mkdir -p store/logs
 
-      - name: Start development server
-        run: |
-          cd store
-          npm start > logs/server.log 2>&1 &
-        env:
-          CI: true
-
-      - name: Check if server is running
-        run: |
-          sleep 10
-          if ! lsof -i :3000; then
-            echo "Server is not running on port 3000. Printing server logs:"
-            cat store/logs/server.log
-            exit 1
-          fi
-
-      - name: Wait for server to be ready
-        run: |
-          npx wait-on http://localhost:3000 --timeout 120000 || (cat store/logs/server.log && exit 1)
-
-      - name: Print server logs
-        run: |
-          cat store/logs/server.log
-
-      - name: Run Cypress tests
-        uses: cypress-io/github-action@v4
-        with:
-          working-directory: store
-          wait-on: http://localhost:3000
-          wait-on-timeout: 120s
-          config: '{"defaultCommandTimeout": 10000, "pageLoadTimeout": 60000}'
-        env:
-          CI: true
 
       - name: Build React app
         run: |

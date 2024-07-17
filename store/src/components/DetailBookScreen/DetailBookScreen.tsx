@@ -6,7 +6,7 @@ import { requestBookByISBN } from '../../domain/APIs/BookAPI';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { addToCart } from '../../slices/cartSlice';
-import {Book} from "../../domain/Interfaces/Book";
+import { Book } from '../../domain/Interfaces/Book';
 
 
 // Definiert die DetailBookScreen.tsx-Komponente als Funktionale Komponente

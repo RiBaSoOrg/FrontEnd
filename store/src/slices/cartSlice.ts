@@ -1,12 +1,12 @@
 // src/slices/cartSlice.ts
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { addItem, createBasket } from '../domain/APIs/BasketAPI';
+import { addItem, createBasket, removeBasket, removeItem } from '../domain/APIs/BasketAPI';
 import { Book } from '../domain/Interfaces/Book';
 
 
 
 // Definiere das Interface für ein einzelnes Element im Warenkorb
-interface CartItem extends Omit<Book, 'price'> {
+export interface CartItem extends Omit<Book, 'price'> {
   price: number;  // Der Preis des Buches als Zahl
   quantity: number; // Die Anzahl der Exemplare des Buches im Warenkorb
   store: 'Shortstories' | 'Novels'; // Die Herkunft des Buches
@@ -41,6 +41,20 @@ export const addItemToBasketThunk = createAsyncThunk(
   async ({ basketID, itemID, amount }: { basketID: string; itemID: string; amount: number }) => {
     const success = await addItem(basketID, itemID, amount);
     return { basketID, itemID, amount };
+  }
+);
+export const removeItemFromBasketThunk = createAsyncThunk(
+  'cart/removeItemFromBasket',
+  async ({ basketID, itemID, amount }: { basketID: string; itemID: string; amount: number }) => {
+    const success = await removeItem(basketID, itemID, amount);
+    return { basketID, itemID, amount };
+  }
+);
+export const clearBasketThunk = createAsyncThunk(
+  'cart/clearBasket',
+  async (basketID: string) => {
+    await removeBasket(basketID);
+    return basketID;
   }
 );
 
@@ -100,6 +114,28 @@ const cartSlice = createSlice({
           state.status = 'succeeded';
         })
         .addCase(addItemToBasketThunk.rejected, (state, action) => {
+          state.status = 'failed';
+          state.error = action.error.message || null;
+        })
+        .addCase(removeItemFromBasketThunk.pending, (state) => {
+          state.status = 'loading';
+        })
+        .addCase(removeItemFromBasketThunk.fulfilled, (state, action) => {
+          state.status = 'succeeded';
+        })
+        .addCase(removeItemFromBasketThunk.rejected, (state, action) => {
+          state.status = 'failed';
+          state.error = action.error.message || null;
+        })
+        .addCase(clearBasketThunk.pending, (state) => {
+          state.status = 'loading';
+        })
+        .addCase(clearBasketThunk.fulfilled, (state, action) => {
+          state.status = 'succeeded';
+          state.cart = [];
+          state.basketId = null;
+        })
+        .addCase(clearBasketThunk.rejected, (state, action) => {
           state.status = 'failed';
           state.error = action.error.message || null;
         });

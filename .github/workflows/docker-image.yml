@@ -36,10 +36,11 @@ jobs:
       - name: Run Cypress tests
         uses: cypress-io/github-action@v4
         with:
-          start: npm start
+          working-directory: store
           wait-on: http://localhost:3000
           wait-on-timeout: 60
-          config-file: store/cypress.config.ts
+          start: npm start
+          config-file: cypress.config.ts
         env:
           CI: true
 

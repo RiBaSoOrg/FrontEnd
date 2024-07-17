@@ -23,16 +23,29 @@ jobs:
           cd store
           npm install
 
+      - name: Create logs directory
+        run: |
+          mkdir -p store/logs
+
       - name: Start development server
         run: |
           cd store
-          npm start > store/logs/server.log 2>&1 &
+          npm start > logs/server.log 2>&1 &
         env:
-          CI: false
+          CI: true
+
+      - name: Check if server is running
+        run: |
+          sleep 10
+          if ! lsof -i :3000; then
+            echo "Server is not running on port 3000. Printing server logs:"
+            cat store/logs/server.log
+            exit 1
+          fi
 
       - name: Wait for server to be ready
         run: |
-          npx wait-on http://localhost:3000 --timeout 60000 || (cat store/logs/server.log && exit 1)
+          npx wait-on http://localhost:3000 --timeout 120000 || (cat store/logs/server.log && exit 1)
 
       - name: Print server logs
         run: |

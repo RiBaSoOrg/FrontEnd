@@ -35,4 +35,3 @@ export type RootState = ReturnType<typeof store.getState>;
 
 // Definiere den Typ des Dispatchers des Stores
 export type AppDispatch = typeof store.dispatch;
-

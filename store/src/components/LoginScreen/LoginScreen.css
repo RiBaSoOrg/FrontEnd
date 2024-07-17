@@ -160,7 +160,7 @@
     outline: none;
 }
 
-.login-button-login-formular {
+.login-button {
     background: linear-gradient(45deg, #61dafb, #ff6ec4);
     border: none;
     padding: 10px 20px;
@@ -174,7 +174,7 @@
     
 }
 
-.login-button-login-formular:hover {
+.login-button:hover {
     background: linear-gradient(45deg, #ff6ec4, #61dafb);
 }
 

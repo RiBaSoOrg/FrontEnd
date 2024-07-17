@@ -23,11 +23,6 @@ jobs:
           cd store
           npm install
 
-      - name: Create logs directory
-        run: |
-          mkdir -p store/logs
-
-
       - name: Build React app
         run: |
           cd store

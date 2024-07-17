@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
 import './ShopPage.css';
 import BooksList from "../BooksList/BooksList";
+import { useState } from 'react';
 
 const ShopPage: React.FC = () => {
     const [likes, setLikes] = useState<{ [key: string]: number }>({});

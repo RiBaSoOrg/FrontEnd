@@ -20,12 +20,12 @@ jobs:
 
     - name: Install dependencies
       run: |
-        cd frontend
+        cd store
         npm install
 
     - name: Build React app
       run: |
-        cd frontend
+        cd store
         npm run build
 
     - name: Build Docker image

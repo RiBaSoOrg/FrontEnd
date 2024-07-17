@@ -1,54 +1,70 @@
-// src/pages/LoginPage.tsx
-import { useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { loginUser } from '../../domain/APIs/BookAPI';
 import { login } from '../../slices/authSlice';
 import './LoginScreen.css';
-import { useAuth } from '../../Keycloak/KeycloakProvider';
+import { useNavigate } from 'react-router-dom';
+import Test from "../../Test";
 
-const LoginPage: React.FC = () => {
+function LoginPage() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { keycloak, authenticated, token } = useAuth();
+  const [username, setUsername] = useState(''); // Zustand für den Benutzernamen
+  const [password, setPassword] = useState(''); // Zustand für das Passwort
+  const [error, setError] = useState(''); // Zustand für Fehlermeldungen
+  const navigate = useNavigate(); // Hook zum Navigieren
 
-  useEffect(() => {
-    console.log('useEffect triggered');
-    console.log('Authenticated:', authenticated);
-    console.log('Keycloak:', keycloak);
-    console.log('Token:', token);
 
-    if (authenticated && keycloak && token) {
-      console.log('User is authenticated, processing login');
-      const userProfile = keycloak.tokenParsed;
-      console.log('User Profile:', userProfile);
-      const role = userProfile?.realm_access?.roles[0]; // Beispiel: Abrufen der ersten Rolle
-      console.log('Role:', role);
-
-      dispatch(login({ role, token }));
-      navigate('/welcome');
-    }
-  }, [authenticated, keycloak, token, dispatch, navigate]);
-
-  const handleLogin = () => {
-    console.log('Login button clicked');
-    if (keycloak) {
-      console.log('Keycloak instance found, redirecting to login');
-      keycloak.login();
-    } else {
-      console.log('No Keycloak instance found');
+  // Funktion, die aufgerufen wird, wenn der Login-Button geklickt wird
+  const handleLogin = async () => {
+    try {
+      const result = await loginUser({ email: username, password });
+      if (result) {
+        dispatch(login({ role: result.user.role, token: result.accessToken })); // Aufruf der login-Aktion
+        setError(''); // Setzt die Fehlermeldung zurück
+        navigate('/welcome'); // Navigiert zur Willkommensseite
+      } else {
+        setError('Login fehlgeschlagen. Bitte überprüfen Sie Ihre Anmeldeinformationen.');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setError('Login fehlgeschlagen. Bitte versuchen Sie es später erneut.');
     }
   };
-
+return <Test></Test>
   return (
-      <div className="login-container">
-        <h2 className="login-header">Login</h2>
-        {!authenticated && (
-            <button onClick={handleLogin} className="login-button">
-              Login with Keycloak
-            </button>
-        )}
-      </div>
+    <div className="login-container">
+      <h2 className="login-header">Login</h2>
+      <form onSubmit={(e) => {
+        e.preventDefault(); // Verhindere das Neuladen der Seite
+        handleLogin();
+      }} className="login-form">
+        <div className="form-group">
+          <label htmlFor="username">Benutzername</label>
+          <input
+            id="username"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Benutzername"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Passwort</label>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Passwort"
+            required
+          />
+        </div>
+        {error && <div className="login-error" style={{ color: 'red' }}>{error}</div>}
+        <button type="submit" className="login-button-login-formular">Login</button>
+      </form>
+    </div>
   );
-};
+}
 
 export default LoginPage;

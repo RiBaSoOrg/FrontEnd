@@ -8,7 +8,8 @@ import { List, X } from 'react-feather';
 import './AppHeader.css';
 import { RootState } from "../../store";
 import { logout } from "../../slices/authSlice";
-import CartOverlay from "../CartPage/Cart"; // Corrected path to the CSS file
+import CartOverlay from "../CartPage/Cart";
+import Test from "../../Test"; // Corrected path to the CSS file
 
 export const AppHeader: React.FC = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -24,7 +25,6 @@ export const AppHeader: React.FC = () => {
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
     };
-
     return (
         <header className="AppHeader">
             <div className="hamburger" onClick={toggleMenu}>

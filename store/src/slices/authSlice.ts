@@ -1,18 +1,20 @@
 // src/slices/authSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+// Definiere das Authentifizierungs-Zustands-Interface
 interface AuthState {
   isAuthenticated: boolean; // Gibt an, ob der Benutzer authentifiziert ist
   userRole: string | null; // Die Rolle des Benutzers (z.B. 'admin' oder 'non-admin')
   authToken: string | null; // Das Authentifizierungs-Token des Benutzers
 }
-
+// Initialer Zustand des Authentifizierungs-Zustands
 const initialState: AuthState = {
   isAuthenticated: false, // Der Benutzer ist standardmäßig nicht authentifiziert
   userRole: null, // Keine Rolle standardmäßig
   authToken: null, // Kein Authentifizierungs-Token standardmäßig
 };
 
+// Erstelle einen Slice für den Authentifizierungs-Zustand
 const authSlice = createSlice({
   name: 'auth', // Name des Slices
   initialState,  // Initialer Zustand des Slices

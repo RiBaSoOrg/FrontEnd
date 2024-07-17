@@ -31,16 +31,14 @@ jobs:
           CI: true
 
       - name: Wait for server to be ready
-        run: sleep 30
+        run: npx wait-on http://localhost:3000
 
       - name: Run Cypress tests
         uses: cypress-io/github-action@v4
         with:
           working-directory: store
           wait-on: http://localhost:3000
-          wait-on-timeout: 60
-          start: npm start
-          config-file: cypress.config.ts
+          wait-on-timeout: 60s
         env:
           CI: true
 

@@ -20,6 +20,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["cypress","scr"
-  ]
+  "include": ["scr"]
 }

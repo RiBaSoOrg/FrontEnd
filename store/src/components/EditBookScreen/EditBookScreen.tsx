@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { updateExistingBook, requestBookByISBN, deleteBook } from '../../domain/APIs/BookAPI'; // Stellen Sie sicher, dass die Pfade korrekt sind!
-import { Book } from '../../domain/Book';
 import './EditBookScreen.css';
+import {Book} from "../../domain/Interfaces/Book";
 
 // Definiert die EditBookScreen-Komponente als Funktionale Komponente
 const EditBookScreen = () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { RootState } from '../store';
+import { RootState } from '../../store';
 
 const Redirect: React.FC = () => {
   const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated); // Hole den Authentifizierungsstatus aus dem AuthContext

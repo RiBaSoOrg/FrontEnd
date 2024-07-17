@@ -2,7 +2,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
-import { RootState } from '../store';
+import { RootState } from '../../store';
 
 interface RequireAuthProps {
     children?: React.ReactNode; // Optional, falls keine Kinder übergeben werden

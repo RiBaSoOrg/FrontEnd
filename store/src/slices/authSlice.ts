@@ -27,6 +27,7 @@ const authSlice = createSlice({
       state.userRoles = action.payload.roles; // Speichere die Rolle des Benutzers
       state.authToken = action.payload.token; // Speichere das Authentifizierungs-Token
       state.userId = action.payload.userId;
+      console.log(state.userRoles)
     },
     // Definiere den Reducer für das Logout
     logout: (state) => {
@@ -37,6 +38,7 @@ const authSlice = createSlice({
     },
   },
 });
+
 
 export const { login, logout } = authSlice.actions;
 export default authSlice.reducer;

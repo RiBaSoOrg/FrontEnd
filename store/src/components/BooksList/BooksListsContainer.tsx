@@ -7,16 +7,8 @@ interface BookListsContainerProps {
 }
 
 const BookListsContainer: React.FC<BookListsContainerProps> = ({ minpage , maxpage }) => {
-  const [likes, setLikes] = useState<{ [key: string]: number }>({}); // Zustand zur Verwaltung der Like-Anzahl für jedes Buch
   const [currentPage, setCurrentPage] = useState<number>(1); // Zustand für die aktuelle Seite
 
-  //Funktion zum Behandeln von Like-Klicks. Erhöht die Like-Anzahl für das Buch mit der gegebenen ID.
-  const handleLikeClick = (bookId: string) => {
-    setLikes(prevLikes => ({
-      ...prevLikes,
-      [bookId]: (prevLikes[bookId] || 0) + 1 // Inkrementiere die Like-Anzahl für das Buch mit der gegebenen ID
-    }));
-  };
 
   return (
     <BooksList

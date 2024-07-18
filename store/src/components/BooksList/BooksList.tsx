@@ -22,6 +22,7 @@ const BooksList: React.FC<BooksListProps> = ({ minpage, maxpage, backgroundClass
     const cart = useSelector((state: RootState) => state.cart.cart);
     const basketId = useSelector((state: RootState) => state.cart.basketId);
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+    const userId = useSelector((state: RootState) => state.auth.userId);
 
     const handleBookClick = (book: Book) => {
         navigate('/detail-book/' + book.id, { state: { book, list: book.numPages < 301 ? 'shortstory-bookstore' : 'novel-bookstore' } });
@@ -31,14 +32,13 @@ const BooksList: React.FC<BooksListProps> = ({ minpage, maxpage, backgroundClass
         const store = book.numPages < 301 ? 'Shortstories' : 'Novels';
         // Ensure basket exists before adding items to it
         if (isAuthenticated) {
-            if (!basketId) {   //TODO: isAuthenticated
-                //TODO:user123 durch aktuell eingeloggten user ersetzen logick wenn kein user eingeloggt ist
-                const resultAction = await dispatch(createBasketThunk('user123'));
+            if (!basketId && userId) {   
+                const resultAction = await dispatch(createBasketThunk(userId));
                 if (createBasketThunk.fulfilled.match(resultAction)) {
                     const newBasketId = resultAction.payload;
                     dispatch(addItemToBasketThunk({ basketID: newBasketId, itemID: book.id, amount: 1 }));
                 }
-            } else {
+            } else if (basketId) {
                 dispatch(addItemToBasketThunk({ basketID: basketId, itemID: book.id, amount: 1 }));
             }
         }

@@ -6,17 +6,5 @@ const keycloak = new Keycloak({
     clientId: 'frontend'
 });
 
-const initKeycloak = (): Promise<void> => {
-    return keycloak.init({
-        onLoad: 'login-required',
-        redirectUri: 'http://localhost:3000/welcome',
-    }).then(authenticated => {
-        if (!authenticated) {
-            console.warn("Not authenticated!");
-        }
-    }).catch(error => {
-        console.error("Keycloak initialization error:", error);
-    });
-};
 
-export { keycloak, initKeycloak };
+export { keycloak};

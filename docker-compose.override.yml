@@ -3,5 +3,5 @@ services:
   frontend:
     image: ribaso/frontend:latest
     build:
-      context: ..
-      dockerfile: ../Dockerfile
+      context: ./../store
+      dockerfile: ./Dockerfile

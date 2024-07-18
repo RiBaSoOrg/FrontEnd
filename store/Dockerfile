@@ -14,7 +14,11 @@ RUN npm run build
 # Stufe 2: Servieren
 FROM nginx:alpine
 
+RUN apk add --update nodejs npm
+
 COPY --from=build /app/build /usr/share/nginx/html
+
+COPY  default.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 

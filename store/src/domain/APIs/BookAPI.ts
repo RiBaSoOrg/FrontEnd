@@ -1,5 +1,5 @@
 // API.js
-import keycloak from "../../keycloak";
+import {keycloak} from "../../keycloak";
 import { Book } from "../Interfaces/Book";
 
 

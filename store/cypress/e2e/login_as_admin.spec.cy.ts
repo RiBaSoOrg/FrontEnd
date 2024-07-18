@@ -13,8 +13,8 @@ describe('Keycloak Login and Welcome Screen Interaction Test', () => {
         // Keycloak login page interaction
         cy.origin('http://localhost:8080', () => {
             // Assuming there are input fields for username and password with the following IDs
-            cy.get('#username').type('user'); // Replace 'Sopha' with a valid username
-            cy.get('#password').type('user'); // Replace 'admin' with a valid password
+            cy.get('#username').type('admin'); // Replace 'Sopha' with a valid username
+            cy.get('#password').type('admin'); // Replace 'admin' with a valid password
             cy.get('#kc-login').click(); // Assuming the login button has the ID 'kc-login'
         });
 

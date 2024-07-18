@@ -1,39 +1,66 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import './Modal.css';
+import { getUser, updateShippingAddress } from '../../domain/APIs/UserAPI'; 
 
 interface EditAddressModalProps {
     onClose: () => void;
 }
 
 interface ShippingAddress {
-    name: string;
-    address: string;
-    city: string;
+    firstname: string;
+    lastname: string;
+    street: string;
+    houseNumber: string;
     postalCode: string;
-    country: string;
+    state: string;
+    city: string;
 }
 
 const initialShippingState: ShippingAddress = {
-    name: '',
-    address: '',
-    city: '',
+    firstname: '',
+    lastname: '',
+    street: '',
+    houseNumber: '',
     postalCode: '',
-    country: '',
+    state: '',
+    city: '',
 };
+
+interface ShippingAddressErrors extends Partial<ShippingAddress> {
+    form?: string;
+}
 
 const EditAddressModal: React.FC<EditAddressModalProps> = ({ onClose }) => {
     const [shippingAddress, setShippingAddress] = useState<ShippingAddress>(initialShippingState);
-    const [errors, setErrors] = useState<Partial<ShippingAddress>>({});
+    const [errors, setErrors] = useState<ShippingAddressErrors>({});
 
+
+    useEffect(() => {
+        const fetchUserAddress = async () => {
+            try {
+                const user = await getUser();
+                if (user && user.shippingAddress) {
+                    setShippingAddress(user.shippingAddress);
+                }
+            } catch (error) {
+                console.error('Error fetching user address:', error);
+            }
+        };
+
+        fetchUserAddress();
+    }, []);
+    
     const validateShipping = (): boolean => {
-        const newErrors: Partial<ShippingAddress> = {};
-        if (!shippingAddress.name) newErrors.name = 'Name is required';
-        if (!shippingAddress.address) newErrors.address = 'Address is required';
+        const newErrors: ShippingAddressErrors = {};
+        if (!shippingAddress.firstname) newErrors.firstname = 'Firstname is required';
+        if (!shippingAddress.lastname) newErrors.lastname = 'Lastname is required';
+        if (!shippingAddress.street) newErrors.street = 'Street is required';
+        if (!shippingAddress.houseNumber) newErrors.houseNumber = 'House number is required';
+        if (!shippingAddress.postalCode) newErrors.postalCode = 'Postal code is required';
+        if (!shippingAddress.state) newErrors.state = 'State is required';
         if (!shippingAddress.city) newErrors.city = 'City is required';
-        if (!shippingAddress.postalCode) newErrors.postalCode = 'Postal Code is required';
-        if (!shippingAddress.country) newErrors.country = 'Country is required';
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -43,11 +70,16 @@ const EditAddressModal: React.FC<EditAddressModalProps> = ({ onClose }) => {
         setShippingAddress({ ...shippingAddress, [name]: value });
     };
 
-    const handleSave = (event: FormEvent) => {
+    const handleSave = async (event: FormEvent) => {
         event.preventDefault();
         if (validateShipping()) {
-            // Handle saving the updated address here
-            onClose();
+            try {
+                await updateShippingAddress(shippingAddress);
+                onClose();
+            } catch (error) {
+                console.error('Error updating shipping address:', error);
+                setErrors({ ...errors, form: 'Failed to update shipping address. Please try again.' });
+            }
         }
     };
 
@@ -75,6 +107,7 @@ const EditAddressModal: React.FC<EditAddressModalProps> = ({ onClose }) => {
                             )}
                         </div>
                     ))}
+                    {errors.form && <p className="error">{errors.form}</p>}
                     <button type="submit" className="button confirm-button">Save Address</button>
                 </form>
             </div>

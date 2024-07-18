@@ -1,6 +1,5 @@
 import React, {useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { loginUser } from '../../domain/APIs/BookAPI';
 import {login as logindispatch, login, logout} from '../../slices/authSlice';
 import './LoginScreen.css';
 import {useLocation, useNavigate } from 'react-router-dom';
@@ -13,24 +12,6 @@ function LoginPage() {
   const navigate = useNavigate(); // Hook zum Navigieren
   const dispatch = useDispatch();
   
-
-
-  // Funktion, die aufgerufen wird, wenn der Login-Button geklickt wird
-  const handleLogin = async () => {
-    try {
-      const result = await loginUser({ email: username, password });
-      if (result) {
-       // dispatch(login({ roles: result.user.role, token: result.accessToken })); // Aufruf der login-Aktion
-        setError(''); // Setzt die Fehlermeldung zurück
-        navigate('/welcome'); // Navigiert zur Willkommensseite
-      } else {
-        setError('Login fehlgeschlagen. Bitte überprüfen Sie Ihre Anmeldeinformationen.');
-      }
-    } catch (error) {
-      console.error('Login error:', error);
-      setError('Login fehlgeschlagen. Bitte versuchen Sie es später erneut.');
-    }
-  };
 
     const location = useLocation()
     const currentLocationState = location.state || {
@@ -49,6 +30,7 @@ function LoginPage() {
 
       const userId = keycloak.tokenParsed?.sub;
       const roles = keycloak.resourceAccess.account?.roles
+  
 
       if (typeof keycloak.idToken === 'string' && userId) {
         dispatch(logindispatch({ roles, token: keycloak.idToken, userId })); // Aufruf der login-Aktion mit Benutzer-ID

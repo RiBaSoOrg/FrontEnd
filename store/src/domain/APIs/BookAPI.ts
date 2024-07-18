@@ -2,18 +2,10 @@
 import { Book } from "../Interfaces/Book";
 
 
-// Definiere den Typ für die Paginierungslinks
-export type PaginationLinks = {
-    first?: string;
-    prev?: string;
-    next?: string;
-    last?: string;
-};
-
 // Basis-URL der API
 const BOOKMONKEY_URL: string = 'http://localhost:4730';
 const BOOK_URL: string = 'http://localhost:8084';
-const USER_URL: string = 'http://localhost:8083';
+
 
 const CHECKOUT_URL: string = 'http://localhost:8082';
 
@@ -124,30 +116,8 @@ interface LoginResponse {
     user: User;
 }
 
-// Funktion zum Einloggen eines Benutzers
-async function loginUser(credentials: LoginCredentials): Promise<LoginResponse> {
-    try {
-        const response = await fetch(`${USER_URL}/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(credentials),
-        });
-        if (!response.ok) {
-            throw new Error('Login failed');
-        }
-        const data: LoginResponse = await response.json();
-        console.log(data);
-        // Speichere das Access Token im localStorage oder einem Zustandsmanagement-Store
-        localStorage.setItem('accessToken', data.accessToken);
-        return data;
-    } catch (error) {
-        console.error('Error logging in:', error);
-        throw error;
-    }
-}
 
 
 
-export { requestAllBooks, requestBookByID as requestBookByISBN, postNewBook, updateExistingBook, deleteBook, loginUser };
+
+export { requestAllBooks, requestBookByID as requestBookByISBN, postNewBook, updateExistingBook, deleteBook};

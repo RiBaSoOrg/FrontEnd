@@ -6,7 +6,7 @@ const AboutScreen: React.FC = () => {
   return (
     <div className="about-container">
       <h1>About Us - Book-Store Novel and Short Stories</h1>
-      <p>Project of Rico Flemming (584322), Sophia Piyamit(586285), </p>
+      <p>Project of Rico Flemming (584322), Sophia Piyamit(586285),Bastian Lehmann(584512)</p>
     </div>
   );
 };

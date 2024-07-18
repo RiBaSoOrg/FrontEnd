@@ -1,4 +1,4 @@
-import keycloak from "../../keycloak";
+import {keycloak} from "../../keycloak";
 import { Address, User } from "../Interfaces/User";
 
 const USER_URL: string = 'http://localhost:8083';

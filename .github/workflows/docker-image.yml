@@ -7,20 +7,11 @@ on:
 
 jobs:
   build:
-    timeout-minutes: 10
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - uses: actions/checkout@v4
-        with:
-          repository: 'RiBaSoOrg/infrastructure'
-          path: './infra'
-
-      - name: Start containers
-        run: | 
-          cd ./infra && docker-compose -f "docker-compose.yml" -f "../docker-compose.override.yml" up -d --build
 
       - name: Set up Node.js
         uses: actions/setup-node@v2

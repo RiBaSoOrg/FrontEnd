@@ -6,4 +6,5 @@ const keycloak = new Keycloak({
     clientId: 'frontend'
 });// Pass initialization options as required or leave blank to load from 'keycloak.json'
 
-export default keycloak
+export { keycloak};
+

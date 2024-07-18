@@ -23,4 +23,34 @@ describe('Keycloak Login Test', () => {
         // Verify that some welcome text or element is visible
         cy.contains('Willkommen').should('be.visible');
     });
-});
+
+    it('should open and close the edit address modal', () => {
+        // Check if the edit address button exists and click it
+        cy.contains('Edit Address').should('exist').click();
+
+        // Check if the modal opens
+        cy.contains('Edit Shipping Address').should('be.visible');
+
+        // Close the modal
+        cy.get('.modal-close-button').click(); // Adjust selector to your close button class or id
+        cy.contains('Edit Shipping Address').should('not.exist');
+    });
+
+    it('should open and close the edit payment details modal', () => {
+        // Check if the edit payment details button exists and click it
+        cy.contains('Edit Payment Details').should('exist').click();
+
+        // Check if the modal opens
+        cy.contains('Edit Payment Details').should('be.visible');
+
+        // Close the modal
+        cy.get('.modal-close-button').click(); // Adjust selector to your close button class or id
+        cy.contains('Edit Payment Details').should('not.exist');
+    });
+
+    it('should logout and redirect to login page', () => {
+        // Check if the logout button exists and click it
+        cy.contains('Logout').should('exist').click();
+
+    });
+})

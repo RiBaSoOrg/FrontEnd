@@ -42,11 +42,6 @@ const CartOverlay: React.FC<CartOverlayProps> = ({ onClose }) => {
     dispatch(clearCart());
   };
 
-   // Temporary login function for testing
-   const handleLogin = () => {
-    dispatch(login({ role: 'user', token: 'test-token' }));
-  };
-
 
   return (
     <div className="cart-overlay">
@@ -78,7 +73,6 @@ const CartOverlay: React.FC<CartOverlayProps> = ({ onClose }) => {
             <button onClick={handleClearCartClick} className="clear-cart-button">Clear Cart</button>
           </div>
         )}
-        <button onClick={handleLogin} className="login-button">Login (for testing)</button>
       </div>
     </div>
   );

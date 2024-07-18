@@ -9,13 +9,12 @@ import './AppHeader.css';
 import { RootState } from "../../store";
 import { logout } from "../../slices/authSlice";
 import CartOverlay from "../CartPage/Cart";
-import Test from "../../Test"; // Corrected path to the CSS file
 
 export const AppHeader: React.FC = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [isCartOpen, setIsCartOpen] = useState(false);
     const cart = useSelector((state: RootState) => state.cart.cart);
-    const { isAuthenticated, userRole } = useSelector((state: RootState) => state.auth);
+    const { isAuthenticated, userRoles } = useSelector((state: RootState) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -43,7 +42,7 @@ export const AppHeader: React.FC = () => {
                 </Link>
             </div>
             <div className="right-section">
-                {userRole === 'admin' && (
+                {userRoles?.includes('admin') && (
                     <Link to="/add-book" className="nav-button">Add New Book</Link>
                 )}
                 <Link to={isAuthenticated ? "/welcome" : "/login"} className="login-icon">

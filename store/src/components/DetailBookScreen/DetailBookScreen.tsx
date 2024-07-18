@@ -14,7 +14,7 @@ const DetailBookScreen = () => {
     const { id } = useParams<{ id?: string }>();  // Holt die ID aus den URL-Parametern
     const location = useLocation();  // Holt den aktuellen Standort
     const navigate = useNavigate(); // Verwendet den useNavigate-Hook von React Router, um Navigationen durchzuführen
-    const { userRole } = useSelector((state: RootState) => state.auth); // Holt die Benutzerrolle aus dem AuthContext
+    const { userRoles } = useSelector((state: RootState) => state.auth); // Holt die Benutzerrolle aus dem AuthContext
     const dispatch = useDispatch(); 
     const [book, setBook] = useState<Book | null>(null); // Lokaler Zustand für das Buch
     const listRoute = location.state?.list || '/'; // Rückfall auf die Startseite
@@ -82,7 +82,7 @@ const DetailBookScreen = () => {
             <div className="detail-book-footer">
                 <button className="detail-book-back-button" onClick={handleReturn}>Back</button>
 
-                {userRole === 'admin' && (
+                {userRoles?.includes("admin") && (
                     <button className="detail-book-edit-button" onClick={handleEditClick}>Edit Book</button>  /* Bearbeiten-Button für Admins */
                 )}
                 {(

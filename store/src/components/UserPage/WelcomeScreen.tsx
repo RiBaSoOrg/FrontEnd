@@ -6,16 +6,19 @@ import { RootState } from "../../store";
 import { logout } from "../../slices/authSlice";
 import EditShippingAddress from "../EditShippingAdressAndPaymentDetail/EditShippingAddress";
 import EditPaymentDetail from "../EditShippingAdressAndPaymentDetail/EditPaymentDetail";
+import { useKeycloak } from '@react-keycloak/web';
 
 const WelcomeScreen: React.FC = () => {
     const { isAuthenticated } = useSelector((state: RootState) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { keycloak, initialized } = useKeycloak()
 
     const [isAddressModalOpen, setAddressModalOpen] = useState(false);
     const [isPaymentModalOpen, setPaymentModalOpen] = useState(false);
 
     const handleLogout = () => {
+        keycloak.logout()
         dispatch(logout());
         navigate('/');
     };

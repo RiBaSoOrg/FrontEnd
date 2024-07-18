@@ -4,13 +4,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 // Definiere das Authentifizierungs-Zustands-Interface
 interface AuthState {
   isAuthenticated: boolean; // Gibt an, ob der Benutzer authentifiziert ist
-  userRole: string | null; // Die Rolle des Benutzers (z.B. 'admin' oder 'non-admin')
+  userRoles: string[] | null; // Die Rolle des Benutzers (z.B. 'admin' oder 'non-admin')
   authToken: string | null; // Das Authentifizierungs-Token des Benutzers
 }
 // Initialer Zustand des Authentifizierungs-Zustands
 const initialState: AuthState = {
   isAuthenticated: false, // Der Benutzer ist standardmäßig nicht authentifiziert
-  userRole: null, // Keine Rolle standardmäßig
+  userRoles: null, // Keine Rolle standardmäßig
   authToken: null, // Kein Authentifizierungs-Token standardmäßig
 };
 
@@ -20,15 +20,15 @@ const authSlice = createSlice({
   initialState,  // Initialer Zustand des Slices
   reducers: {
     // Definiere den Reducer für das Login
-    login: (state, action: PayloadAction<{ role: string, token: string }>) => {
+    login: (state, action: PayloadAction<{ roles: string[], token: string }>) => {
       state.isAuthenticated = true; // Setze den Zustand auf authentifiziert
-      state.userRole = action.payload.role; // Speichere die Rolle des Benutzers
+      state.userRoles = action.payload.roles; // Speichere die Rolle des Benutzers
       state.authToken = action.payload.token; // Speichere das Authentifizierungs-Token
     },
     // Definiere den Reducer für das Logout
     logout: (state) => {
       state.isAuthenticated = false; // Setze den Zustand auf nicht authentifiziert
-      state.userRole = null; // Entferne die Rolle des Benutzers
+      state.userRoles = null; // Entferne die Rolle des Benutzers
       state.authToken = null; // Entferne das Authentifizierungs-Token
     },
   },

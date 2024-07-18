@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React, {useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../domain/APIs/BookAPI';
-import { login } from '../../slices/authSlice';
+import {login as logindispatch, login} from '../../slices/authSlice';
 import './LoginScreen.css';
-import { useNavigate } from 'react-router-dom';
-import Test from "../../Test";
+import {useLocation, useNavigate } from 'react-router-dom';
+import { useKeycloak } from '@react-keycloak/web';
 
 function LoginPage() {
-  const dispatch = useDispatch();
   const [username, setUsername] = useState(''); // Zustand für den Benutzernamen
   const [password, setPassword] = useState(''); // Zustand für das Passwort
   const [error, setError] = useState(''); // Zustand für Fehlermeldungen
   const navigate = useNavigate(); // Hook zum Navigieren
+  const dispatch = useDispatch();
 
 
   // Funktion, die aufgerufen wird, wenn der Login-Button geklickt wird
@@ -19,7 +19,7 @@ function LoginPage() {
     try {
       const result = await loginUser({ email: username, password });
       if (result) {
-        dispatch(login({ role: result.user.role, token: result.accessToken })); // Aufruf der login-Aktion
+       // dispatch(login({ roles: result.user.role, token: result.accessToken })); // Aufruf der login-Aktion
         setError(''); // Setzt die Fehlermeldung zurück
         navigate('/welcome'); // Navigiert zur Willkommensseite
       } else {
@@ -30,41 +30,35 @@ function LoginPage() {
       setError('Login fehlgeschlagen. Bitte versuchen Sie es später erneut.');
     }
   };
-return <Test></Test>
-  return (
-    <div className="login-container">
-      <h2 className="login-header">Login</h2>
-      <form onSubmit={(e) => {
-        e.preventDefault(); // Verhindere das Neuladen der Seite
-        handleLogin();
-      }} className="login-form">
-        <div className="form-group">
-          <label htmlFor="username">Benutzername</label>
-          <input
-            id="username"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Benutzername"
-            required
-          />
+
+    const location = useLocation()
+    const currentLocationState = location.state || {
+      from: { pathname: '/home' },
+    }
+
+    const { keycloak } = useKeycloak()
+
+    const login = useCallback(() => {
+      keycloak?.login({redirectUri:"http://localhost:3000/welcome"})
+    }, [keycloak])
+
+    useEffect(() => {
+      if (!keycloak.resourceAccess) {return }
+      if (!keycloak.idToken) {return }
+      dispatch(logindispatch({ roles: keycloak.resourceAccess.account.roles, token: keycloak.idToken })); // Aufruf der login-Aktion
+      if (keycloak?.authenticated){
+        return navigate("/welcome")
+      }
+    },[keycloak?.authenticated]);
+
+    return (
+        <div>
+          <button type="button" onClick={login}>
+            Login
+          </button>
         </div>
-        <div className="form-group">
-          <label htmlFor="password">Passwort</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Passwort"
-            required
-          />
-        </div>
-        {error && <div className="login-error" style={{ color: 'red' }}>{error}</div>}
-        <button type="submit" className="login-button-login-formular">Login</button>
-      </form>
-    </div>
-  );
-}
+    )
+  }
+
 
 export default LoginPage;

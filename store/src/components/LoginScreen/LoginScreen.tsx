@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../domain/APIs/BookAPI';
-import {login as logindispatch, login} from '../../slices/authSlice';
+import {login as logindispatch, login, logout} from '../../slices/authSlice';
 import './LoginScreen.css';
 import {useLocation, useNavigate } from 'react-router-dom';
 import { useKeycloak } from '@react-keycloak/web';
@@ -12,6 +12,7 @@ function LoginPage() {
   const [error, setError] = useState(''); // Zustand für Fehlermeldungen
   const navigate = useNavigate(); // Hook zum Navigieren
   const dispatch = useDispatch();
+  
 
 
   // Funktion, die aufgerufen wird, wenn der Login-Button geklickt wird
@@ -45,11 +46,19 @@ function LoginPage() {
     useEffect(() => {
       if (!keycloak.resourceAccess) {return }
       if (!keycloak.idToken) {return }
-      dispatch(logindispatch({ roles: keycloak.resourceAccess.account.roles, token: keycloak.idToken })); // Aufruf der login-Aktion
-      if (keycloak?.authenticated){
-        return navigate("/welcome")
+
+      const userId = keycloak.tokenParsed?.sub;
+      const roles = keycloak.resourceAccess.account?.roles
+
+      if (typeof keycloak.idToken === 'string' && userId) {
+        dispatch(logindispatch({ roles, token: keycloak.idToken, userId })); // Aufruf der login-Aktion mit Benutzer-ID
+      } else {
+        dispatch(logout());
       }
-    },[keycloak?.authenticated]);
+      if (keycloak?.authenticated) {
+        navigate('/welcome');
+      }
+    }, [keycloak?.authenticated, keycloak.resourceAccess, keycloak.idToken, keycloak.tokenParsed, dispatch, navigate]);
 
     return (
         <div>

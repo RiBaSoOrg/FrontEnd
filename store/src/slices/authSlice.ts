@@ -6,12 +6,14 @@ interface AuthState {
   isAuthenticated: boolean; // Gibt an, ob der Benutzer authentifiziert ist
   userRoles: string[] | null; // Die Rolle des Benutzers (z.B. 'admin' oder 'non-admin')
   authToken: string | null; // Das Authentifizierungs-Token des Benutzers
+  userId: string | null;
 }
 // Initialer Zustand des Authentifizierungs-Zustands
 const initialState: AuthState = {
   isAuthenticated: false, // Der Benutzer ist standardmäßig nicht authentifiziert
   userRoles: null, // Keine Rolle standardmäßig
   authToken: null, // Kein Authentifizierungs-Token standardmäßig
+  userId: null, 
 };
 
 // Erstelle einen Slice für den Authentifizierungs-Zustand
@@ -20,16 +22,18 @@ const authSlice = createSlice({
   initialState,  // Initialer Zustand des Slices
   reducers: {
     // Definiere den Reducer für das Login
-    login: (state, action: PayloadAction<{ roles: string[], token: string }>) => {
+    login: (state, action: PayloadAction<{ roles: string[], token: string, userId: string  }>) => {
       state.isAuthenticated = true; // Setze den Zustand auf authentifiziert
       state.userRoles = action.payload.roles; // Speichere die Rolle des Benutzers
       state.authToken = action.payload.token; // Speichere das Authentifizierungs-Token
+      state.userId = action.payload.userId;
     },
     // Definiere den Reducer für das Logout
     logout: (state) => {
       state.isAuthenticated = false; // Setze den Zustand auf nicht authentifiziert
       state.userRoles = null; // Entferne die Rolle des Benutzers
       state.authToken = null; // Entferne das Authentifizierungs-Token
+      state.userId = null;
     },
   },
 });

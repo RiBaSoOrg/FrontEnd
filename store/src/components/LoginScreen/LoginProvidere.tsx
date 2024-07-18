@@ -19,9 +19,10 @@ export const LoginProvidere: React.FC = () => {
 
         // @ts-ignore
         const idToken = tokens?.idToken
+        const userId = keycloak.tokenParsed?.sub; 
         console.log('onKeycloakTokens', tokens)
-        if (typeof idToken === "string") {
-            dispatch(logindispatch({roles: [], token: idToken})); // Aufruf der login-Aktion
+        if (typeof idToken === "string" && typeof userId === "string" ) {
+            dispatch(logindispatch({roles: [], token: idToken, userId })); // Aufruf der login-Aktion
         }
         if (typeof idToken === "undefined") {
             dispatch(logout());

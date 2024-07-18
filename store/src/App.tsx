@@ -3,7 +3,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import { store, persistor } from './store';
 
-import LoginProvidere from "./components/LoginProvidere";
+import LoginProvidere from "./components/LoginScreen/LoginProvidere";
 
 
 // Definiere die Haupt-App-Komponente

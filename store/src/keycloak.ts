@@ -6,4 +6,9 @@ const keycloak = new Keycloak({
     clientId: 'frontend'
 });// Pass initialization options as required or leave blank to load from 'keycloak.json'
 
+keycloak.init({
+    onLoad: 'login-required',
+    redirectUri: 'http://localhost:3000/welcome',
+  });
+
 export default keycloak

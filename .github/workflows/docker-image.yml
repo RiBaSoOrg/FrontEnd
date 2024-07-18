@@ -21,7 +21,9 @@ jobs:
       - name: Start containers
         run: | 
           cd ./infra && docker-compose -f "docker-compose.yml" -f "../docker-compose.override.yml" up -d --build
-
+      - name: run cypress
+        run: |
+          cd ./infra && docker-compose -f "docker-compose.yml" -f "../docker-compose.override.yml" run frontend npx cypress run
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:

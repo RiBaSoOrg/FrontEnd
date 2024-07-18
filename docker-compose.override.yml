@@ -1,0 +1,5 @@
+frontend:
+  image: ribaso/frontend:latest
+  build:
+    context: ..
+    dockerfile: ../Dockerfile

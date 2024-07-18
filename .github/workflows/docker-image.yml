@@ -20,14 +20,7 @@ jobs:
 
       - name: Start containers
         run: | 
-         cd ./infra && docker-compose -f "docker-compose.yml" -f - <<EOF
-          frontend:
-          image: ribaso/frontend:latest
-          build:
-           context: ..
-           dockerfile: ../Dockerfile
-         EOF 
-         up -d --build
+         cd ./infra && docker-compose -f "docker-compose.yml" -f "../docker-compose.override.yml" up -d --build
 
       - name: Set up Node.js
         uses: actions/setup-node@v2

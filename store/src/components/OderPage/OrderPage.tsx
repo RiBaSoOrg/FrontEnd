@@ -1,10 +1,14 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { clearCart } from '../../slices/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearBasketThunk, clearCart } from '../../slices/cartSlice';
 import './OrderPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { updateShippingAddress } from '../../domain/APIs/UserAPI';
+import { AppDispatch, RootState } from '../../store';
+import { Address } from '../../domain/Interfaces/User';
+import { getUser } from '../../domain/APIs/UserAPI';
 
 interface CartItem {
     id: string;
@@ -20,13 +24,7 @@ interface StateType {
     totalPrice: number;
 }
 
-interface ShippingAddress {
-    name: string;
-    address: string;
-    city: string;
-    postalCode: string;
-    country: string;
-}
+interface ShippingAddress extends Address { }
 
 interface PaymentInfo {
     cardNumber: string;
@@ -35,11 +33,13 @@ interface PaymentInfo {
 }
 
 const initialShippingState: ShippingAddress = {
-    name: '',
-    address: '',
-    city: '',
+    firstname: '',
+    lastname: '',
+    street: '',
+    houseNumber: '',
     postalCode: '',
-    country: '',
+    state: '',
+    city: '',
 };
 
 const initialPaymentState: PaymentInfo = {
@@ -51,7 +51,9 @@ const initialPaymentState: PaymentInfo = {
 const OrderPage: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
+    const basketId = useSelector((state: RootState) => state.cart.basketId);
+    const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
 
     const state = location.state as StateType || { cart: [], totalPrice: 0 };
     const { cart, totalPrice } = state;
@@ -63,13 +65,30 @@ const OrderPage: React.FC = () => {
         payment: {} as Partial<PaymentInfo>,
     });
 
+    useEffect(() => {
+        const fetchUserAddress = async () => {
+            try {
+                const user = await getUser();
+                if (user && user.shippingAddress) {
+                    setShippingAddress(user.shippingAddress);
+                }
+            } catch (error) {
+                console.error('Error fetching user address:', error);
+            }
+        };
+
+        fetchUserAddress();
+    }, []);
+
     const validateShipping = (): boolean => {
         const newErrors: Partial<ShippingAddress> = {};
-        if (!shippingAddress.name) newErrors.name = 'Name is required';
-        if (!shippingAddress.address) newErrors.address = 'Address is required';
+        if (!shippingAddress.firstname) newErrors.firstname = 'Firstname is required';
+        if (!shippingAddress.lastname) newErrors.lastname = 'Lastname is required';
+        if (!shippingAddress.street) newErrors.street = 'Street is required';
+        if (!shippingAddress.houseNumber) newErrors.houseNumber = 'House number is required';
+        if (!shippingAddress.postalCode) newErrors.postalCode = 'Postal code is required';
+        if (!shippingAddress.state) newErrors.state = 'State is required';
         if (!shippingAddress.city) newErrors.city = 'City is required';
-        if (!shippingAddress.postalCode) newErrors.postalCode = 'Postal Code is required';
-        if (!shippingAddress.country) newErrors.country = 'Country is required';
         setErrors(prev => ({ ...prev, shipping: newErrors }));
         return Object.keys(newErrors).length === 0;
     };
@@ -98,10 +117,21 @@ const OrderPage: React.FC = () => {
         const isPaymentValid = validatePayment();
 
         if (isShippingValid && isPaymentValid) {
-            navigate('/thank-you', { state: { purchasedItems: cart, totalPrice } });
-            dispatch(clearCart());
-        }
-    };
+            try {
+                await updateShippingAddress(shippingAddress);
+                navigate('/thank-you', { state: { purchasedItems: cart, totalPrice } });
+
+                if (isAuthenticated && basketId) {
+                    dispatch(clearBasketThunk(basketId));
+                }
+                dispatch(clearCart());
+            } catch (error) {
+                console.error('Failed to process order', error);
+                // Setze einen allgemeinen Fehler, falls die Bestellung fehlschlägt
+                setErrors(prev => ({ ...prev, form: 'Failed to process order. Please try again.' }));
+            }
+        };
+    }
 
     const handleReturnToShop = () => {
         navigate('/shop'); // Replace '/shop' with the actual path to your shop page

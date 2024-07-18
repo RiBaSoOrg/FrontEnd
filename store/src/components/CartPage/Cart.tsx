@@ -4,9 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
 import { removeFromCart, clearCart, removeItemFromBasketThunk, CartItem, clearBasketThunk } from '../../slices/cartSlice';
 import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { login } from '../../slices/authSlice';
+
 
 
 interface CartOverlayProps {

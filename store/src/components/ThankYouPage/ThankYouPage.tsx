@@ -33,14 +33,14 @@ const ThankYouPage: React.FC = () => {
                             <span className="purchased-item-title">{item.title}</span>
                             <span className="purchased-item-author">by {item.author}</span>
                             <span className="purchased-item-quantity">Quantity: {item.quantity}</span>
-                            <span className="purchased-item-price">Price: €{(item.price * item.quantity).toFixed(2)}</span>
+                            <span className="purchased-item-price">Price: ${(item.price * item.quantity).toFixed(2)}</span>
                             <span className="purchased-item-store">Store: {item.store}</span>
                         </div>
                     </li>
                 ))}
             </ul>
             <div className="total-price">
-                <strong>Total: €{totalPrice.toFixed(2)}</strong>
+                <strong>Total: ${totalPrice.toFixed(2)}</strong>
             </div>
             <button className="back-button" onClick={() => navigate('/shop')}>Back to Shop</button>
         </div>

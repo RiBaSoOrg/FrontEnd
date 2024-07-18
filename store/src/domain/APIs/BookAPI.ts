@@ -1,4 +1,5 @@
 // API.js
+import keycloak from "../../keycloak";
 import { Book } from "../Interfaces/Book";
 
 
@@ -12,6 +13,7 @@ const CHECKOUT_URL: string = 'http://localhost:8082';
 // Funktion zum Anfordern aller Bücher mit Paginierung und Filterung nach Seitenanzahl
 
 async function requestAllBooks(minpage: number, maxpage: number): Promise<{ books: Book[]}> {
+    const token = keycloak.token;
     try {
         const response = await fetch(`${BOOK_URL}/books?minPages=${minpage}&maxPages=${maxpage}&_sort=numPages&_order=asc`, {
             method: 'GET',
@@ -37,6 +39,7 @@ async function requestAllBooks(minpage: number, maxpage: number): Promise<{ book
 
 // Funktion zum Anfordern eines Buches anhand seiner ID
 async function requestBookByID(id: string) {
+    const token = keycloak.token;
     try {
         const response: Response = await fetch(`${BOOK_URL}/books/${id}`);
         const data: Book = await response.json();
@@ -49,6 +52,7 @@ async function requestBookByID(id: string) {
 
 // Funktion zum Hinzufügen eines neuen Buches
 async function postNewBook(bookData: Book) {
+    const token = keycloak.token;
     try {
         const response: Response = await fetch(`${BOOK_URL}/books`, {
             method: 'POST',
@@ -57,8 +61,10 @@ async function postNewBook(bookData: Book) {
             },
             body: JSON.stringify(bookData),
         });
-        const data: Book = await response.json();
-        return data;
+        // Überprüfe, ob die Antwort erfolgreich war
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
     } catch (error) {
         console.error('Error posting new book:', error);
         throw error;
@@ -67,6 +73,7 @@ async function postNewBook(bookData: Book) {
 
 // Funktion zum Aktualisieren eines bestehenden Buches
 async function updateExistingBook(isbn: string, updatedBookData: Book) {
+    const token = keycloak.token;
     try {
         const response: Response = await fetch(`${BOOK_URL}/books/${isbn}`, {
             method: 'PUT',
@@ -75,8 +82,22 @@ async function updateExistingBook(isbn: string, updatedBookData: Book) {
             },
             body: JSON.stringify(updatedBookData),
         });
-        const data: Book = await response.json();
-        return data;
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const getResponse: Response = await fetch(`${BOOK_URL}/books/${isbn}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,  // Füge das Token hinzu, falls erforderlich
+            },
+        });
+        if (!getResponse.ok) {
+            throw new Error(`HTTP error! Status: ${getResponse.status}`);
+        }
+        const updatedBook: Book = await getResponse.json();
+        return updatedBook;
     } catch (error) {
         console.error('Error updating existing book:', error);
         throw error;
@@ -85,6 +106,7 @@ async function updateExistingBook(isbn: string, updatedBookData: Book) {
 
 // Funktion zum Löschen eines Buches
 async function deleteBook(isbn: string) {
+    const token = keycloak.token;
     try {
         const response: Response = await fetch(`${BOOK_URL}/books/${isbn}`, {
             method: 'DELETE',
@@ -96,27 +118,6 @@ async function deleteBook(isbn: string) {
         throw error;
     }
 }
-
-// Interface für Login-Credentials
-interface LoginCredentials {
-    email: string;
-    password: string;
-}
-
-// Interface für Benutzerinformationen
-interface User {
-    email: string;
-    password: string; // Hash-Passwort 
-    id: number;
-    role: string;
-}
-// Interface für die Login-Antwort
-interface LoginResponse {
-    accessToken: string;
-    user: User;
-}
-
-
 
 
 

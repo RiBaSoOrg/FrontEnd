@@ -86,35 +86,33 @@
 }
 
 .confirm-button-container {
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px; /* Adjust as needed */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Creates 4 equal columns */
+    gap: 10px; /* Adds space between grid items */
 }
 
-/* Combine button styles */
-.button {
+.order-back-button, .confirm-button {
     background: linear-gradient(45deg, #61dafb, #ff6ec4);
     border: none;
-    padding: 8px 16px;
+    padding: 10px 20px; /* Adjust padding for consistent size */
     cursor: pointer;
     border-radius: 5px;
     color: white;
     font-size: 1em;
     transition: background 0.3s;
-    margin: 0 10px; /* Add margin between buttons */
+    text-align: center; /* Ensure text is centered */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
-.button:hover {
+.order-back-button:hover, .confirm-button:hover {
     background: linear-gradient(45deg, #ff6ec4, #61dafb);
 }
 
-/* Specific button classes for semantics, if needed */
-.confirm-button {
-
-    /* No additional styles needed, inherit from .button */
+/* Position the buttons to span one column each */
+.order-back-button {
+    grid-column: 1; /* Place in the first column */
 }
 
-.order-back-button {
-    /* No additional styles needed, inherit from .button */
+.confirm-button {
+    grid-column: 11; /* Place in the second column */
 }

@@ -184,8 +184,8 @@ const OrderPage: React.FC = () => {
                         ))}
                     </div>
                     <div className="confirm-button-container">
-                        <button className="button order-back-button" onClick={handleReturnToShop}>Back to Shop</button>
-                        <button type="submit" className="button confirm-button">Pay Order</button>
+                        <button className=" order-back-button" onClick={handleReturnToShop}>Back to Shop</button>
+                        <button type="submit" className=" confirm-button">Pay Order</button>
                     </div>
                 </form>
             </div>

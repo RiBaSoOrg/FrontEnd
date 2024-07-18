@@ -30,7 +30,7 @@ function LoginPage() {
 
       const userId = keycloak.tokenParsed?.sub;
       const roles = keycloak.resourceAccess.account?.roles
-  
+
 
       if (typeof keycloak.idToken === 'string' && userId) {
         dispatch(logindispatch({ roles, token: keycloak.idToken, userId })); // Aufruf der login-Aktion mit Benutzer-ID
@@ -43,13 +43,14 @@ function LoginPage() {
     }, [keycloak?.authenticated, keycloak.resourceAccess, keycloak.idToken, keycloak.tokenParsed, dispatch, navigate]);
 
     return (
-        <div>
-          <button type="button" onClick={login}>
-            Login
+        <div className="login-container">
+          <h2 className="login-header">Login</h2>
+          <button className="login-button" type="button" onClick={login}>
+            Login via Keycloak
           </button>
         </div>
     )
-  }
+}
 
 
 export default LoginPage;

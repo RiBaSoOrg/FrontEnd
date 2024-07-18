@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import { Outlet } from 'react-router-dom';
 import { useDispatch} from 'react-redux';
-import {keycloak} from '../../keycloak'
 import { ReactKeycloakProvider } from '@react-keycloak/web';
 import {login as logindispatch, logout} from "../../slices/authSlice";
 import AppHeader from "../NavBar/AppHeader";
 import Footer from "../Footer/Footer";
 import { createUser, getUser } from '../../domain/APIs/UserAPI';
+import keycloak from '../../keycloak';
 
 export const LoginProvidere: React.FC = () => {
     const dispatch = useDispatch();

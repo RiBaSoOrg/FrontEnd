@@ -1,8 +1,8 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import './Modal.css';
-import { updateShippingAddress } from '../../domain/APIs/UserAPI'; 
+import { getUser, updateShippingAddress } from '../../domain/APIs/UserAPI'; 
 
 interface EditAddressModalProps {
     onClose: () => void;
@@ -36,6 +36,22 @@ const EditAddressModal: React.FC<EditAddressModalProps> = ({ onClose }) => {
     const [shippingAddress, setShippingAddress] = useState<ShippingAddress>(initialShippingState);
     const [errors, setErrors] = useState<ShippingAddressErrors>({});
 
+
+    useEffect(() => {
+        const fetchUserAddress = async () => {
+            try {
+                const user = await getUser();
+                if (user && user.shippingAddress) {
+                    setShippingAddress(user.shippingAddress);
+                }
+            } catch (error) {
+                console.error('Error fetching user address:', error);
+            }
+        };
+
+        fetchUserAddress();
+    }, []);
+    
     const validateShipping = (): boolean => {
         const newErrors: ShippingAddressErrors = {};
         if (!shippingAddress.firstname) newErrors.firstname = 'Firstname is required';
